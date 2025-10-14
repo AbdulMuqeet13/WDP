@@ -35,10 +35,17 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $referrer = null;
+        if ($request->has('ref')) {
+            $referrer = User::query()->where('referral_code', $request->ref)->first();
+        }
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'referred_by' => $referrer?->id,
+            'referral_level' => $referrer ? $referrer->referral_level + 1 : 0,
         ]);
 
         event(new Registered($user));

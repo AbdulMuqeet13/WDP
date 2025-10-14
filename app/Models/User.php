@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable
@@ -49,4 +50,24 @@ class User extends Authenticatable
             'two_factor_confirmed_at' => 'datetime',
         ];
     }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->referral_code = 'WDP' . strtoupper(Str::random(6));
+            $user->save();
+        });
+    }
+
+    public function referrer()
+    {
+        return $this->belongsTo(User::class, 'referred_by');
+    }
+
+    public function directReferrals()
+    {
+        return $this->hasMany(User::class, 'referred_by');
+    }
+
+
 }
