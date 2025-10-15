@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { dashboard, login, register } from '@/routes';
 import { Head, Link } from '@inertiajs/vue3';
+import AppLogoIcon from '@/components/AppLogoIcon.vue';
 
 const levels = [20, 15, 10, 10, 5, 3, 3, 3, 3, 3, 1.1, 1.1, 1.1, 1.1, 1.1]
 const rewards = [
@@ -21,33 +22,70 @@ const rewards = [
     <div
         class="flex flex-col items-center bg-[#FDFDFC] text-[#1b1b18] lg:justify-center dark:bg-[#0a0a0a]"
     >
-        <header
-            class="mb-6 w-full text-sm not-has-[nav]:hidden"
+<header class="w-full bg-white shadow-md py-4 px-6">
+  <nav class="flex flex-wrap items-center justify-between">
+    <!-- ✅ Logo -->
+    <AppLogoIcon
+        class="w-14"
+    />
+
+    <!-- ✅ Buttons -->
+    <div class="flex items-center gap-4">
+      <Link
+        v-if="$page.props.auth.user"
+        :href="dashboard()"
+        class="px-6 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition min-w-[120px] text-center"
+      >
+        Dashboard
+      </Link>
+
+      <template v-else>
+        <Link
+          :href="login()"
+          class="px-6 py-2 rounded-lg border border-blue-600 text-blue-600 font-medium hover:bg-blue-600 hover:text-white transition min-w-[120px] text-center"
         >
-            <nav class="flex items-center justify-end gap-4">
-                <Link
-                    v-if="$page.props.auth.user"
-                    :href="dashboard()"
-                    class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                >
-                    Dashboard
-                </Link>
-                <template v-else>
-                    <Link
-                        :href="login()"
-                        class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
-                    >
-                        Log in
-                    </Link>
-                    <Link
-                        :href="register()"
-                        class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
-                    >
-                        Register
-                    </Link>
-                </template>
-            </nav>
-        </header>
+          Log in
+        </Link>
+        <Link
+          :href="register()"
+          class="px-6 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition min-w-[120px] text-center"
+        >
+          Register
+        </Link>
+      </template>
+    </div>
+  </nav>
+</header>
+
+
+   <!-- <header class="w-full bg-white shadow-md py-4 px-6">
+  <nav class="flex items-center justify-end">
+    <div class="flex items-center gap-4">
+      <Link
+        v-if="$page.props.auth.user"
+        :href="dashboard()"
+        class="px-6 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition min-w-[120px] text-center"
+      >
+        Dashboard
+      </Link>
+      <template v-else>
+        <Link
+          :href="login()"
+          class="px-6 py-2 rounded-lg border border-blue-600 text-blue-600 font-medium hover:bg-blue-600 hover:text-white transition min-w-[120px] text-center"
+        >
+          Log in
+        </Link>
+        <Link
+          :href="register()"
+          class="px-6 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition min-w-[120px] text-center"
+        >
+          Register
+        </Link>
+      </template>
+    </div>
+  </nav>
+</header> -->
+        
         <div
             class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 lg:grow starting:opacity-0"
         >
@@ -64,7 +102,15 @@ const rewards = [
                             <p class="text-lg mb-8 max-w-2xl mx-auto">
                                 Earn daily ROI, unlock referral rewards, and achieve financial freedom with a transparent and automated platform.
                             </p>
-                            <div class="flex justify-center gap-4">
+                            <div class="flex justify-center">
+    <Link
+        href="/register"
+        class="px-6 py-2 rounded-lg bg-white text-blue-600 font-medium min-w-[120px] text-center transition hover:bg-blue-600 hover:text-white"
+    >
+        Get Started
+    </Link>
+</div>
+                            <!-- <div class="flex justify-center gap-4">
                                 <Link
                                     href="/register"
                                     class="bg-yellow-400 text-gray-900 px-6 py-3 rounded-xl font-semibold hover:bg-yellow-500 transition"
@@ -77,7 +123,7 @@ const rewards = [
                                 >
                                     Login
                                 </Link>
-                            </div>
+                            </div> -->
                         </div>
                     </section>
 
@@ -170,12 +216,13 @@ const rewards = [
                     <section class="py-16 bg-blue-700 text-white text-center">
                         <h2 class="text-3xl font-bold mb-4">Ready to Start Your Journey?</h2>
                         <p class="mb-8 text-lg">Join thousands of investors earning daily passive income.</p>
-                        <Link
-                            href="/register"
-                            class="bg-yellow-400 text-gray-900 px-8 py-3 rounded-xl font-semibold hover:bg-yellow-500 transition"
-                        >
-                            Get Started Now
-                        </Link>
+                       <Link
+    href="/register"
+    class="px-6 py-2 rounded-lg bg-white text-blue-600 font-medium min-w-[120px] text-center transition hover:bg-blue-600 hover:text-white"
+>
+    Get Started Now
+</Link>
+                
                     </section>
 
                     <!-- Footer -->
@@ -185,6 +232,6 @@ const rewards = [
                 </div>
             </main>
         </div>
-        <div class="hidden h-14.5 lg:block"></div>
+        <!-- <div class="hidden h-14.5 lg:block"></div> -->
     </div>
 </template>
