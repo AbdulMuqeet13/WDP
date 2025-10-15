@@ -15,8 +15,14 @@ defineProps<Props>();
 <template>
 
   <img
-    src="/assets/images/wdp logo.png"
+    src="/assets/images/wdp-logo.png"
+    class="dark:hidden"
     v-bind="$attrs"
+  />
+  <img
+    src="/assets/images/wdp-logo-dark.png"
+    v-bind="$attrs"
+    class="hidden dark:block"
   />
 
 
