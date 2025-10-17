@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('referral_code')->unique()->nullable();
             $table->foreignId('referred_by')->nullable()->constrained('users')->onDelete('set null');
-            $table->integer('referral_level')->default(0);
             $table->decimal('wallet_balance', 12, 2)->default(0);
             $table->decimal('total_investment', 12, 2)->default(0);
             $table->decimal('total_referral_income', 12, 2)->default(0);
