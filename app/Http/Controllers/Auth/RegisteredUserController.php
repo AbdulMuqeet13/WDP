@@ -48,6 +48,9 @@ class RegisteredUserController extends Controller
             'referral_level' => $referrer ? $referrer->referral_level + 1 : 0,
         ]);
 
+        // Assign default role
+        $user->assignRole('user');
+
         event(new Registered($user));
 
         Auth::login($user);

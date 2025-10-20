@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\User\DepositController;
+use App\Http\Controllers\User\WalletController;
+use App\Http\Controllers\User\WithdrawalController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\UserController;
@@ -13,6 +17,17 @@ Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['aut
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', UserController::class)->only(['index']);
+
+    Route::resource('transactions', TransactionController::class)->only(['index', 'update']);
+});
+
+
+Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
+    Route::resource('/wallet', WalletController::class)->only(['index']);
+
+    Route::resource('/deposits', DepositController::class)->only(['index', 'store']);
+
+    Route::resource('/withdrawals', WithdrawalController::class)->only(['index', 'store']);
 });
 
 require __DIR__.'/settings.php';
