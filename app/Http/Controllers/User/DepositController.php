@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Transaction\CreateTransactionRequest;
-use App\Models\Transaction;
+use Bavix\Wallet\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +12,7 @@ class DepositController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::where('user_id', Auth::id())
+        $transactions = Transaction::where('payable_id', Auth::id())
             ->where('type', 'deposit')
             ->latest()
             ->get();
@@ -29,7 +29,7 @@ class DepositController extends Controller
         $user = Auth::user();
 
         // Prevent duplicate pending deposits
-        $pending = Transaction::where('user_id', $user->id)
+        $pending = Transaction::where('payable_id', $user->id)
             ->where('type', 'deposit')
             ->where('status', 'pending')
             ->exists();
@@ -39,7 +39,7 @@ class DepositController extends Controller
         }
 
         Transaction::create([
-            'user_id' => $user->id,
+            'payable_id' => $user->id,
             'type' => 'deposit',
             'amount' => $data['amount'],
             'status' => 'pending',

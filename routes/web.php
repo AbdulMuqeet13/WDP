@@ -22,7 +22,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 });
 
 
-Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
+Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::resource('/wallet', WalletController::class)->only(['index']);
 
     Route::resource('/deposits', DepositController::class)->only(['index', 'store']);
