@@ -83,7 +83,7 @@ const rewards = [
                         <Button variant="outline">Login</Button>
                     </Link>
                     <Link :href="register()">
-                        <Button class="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:opacity-90">
+                        <Button class="bg-gradient-to-r from-[#249dd8] via-blue-400 to-[#249dd8] text-white hover:opacity-90">
                             Join Us
                         </Button>
                     </Link>
@@ -94,7 +94,7 @@ const rewards = [
             <section class="container flex flex-col-reverse md:flex-row items-center justify-between py-20 gap-12 min-h-[88vh]">
                 <!-- Text -->
                 <div class="flex-1 text-center md:text-left">
-                    <h5 class="text-sm uppercase tracking-wide text-orange-500 font-semibold mb-2">
+                    <h5 class="text-sm uppercase tracking-wide text-[#249dd8] font-semibold mb-2">
                         Get Ultimate Profit
                     </h5>
                     <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
@@ -106,7 +106,7 @@ const rewards = [
                     </p>
 
                     <div class="flex justify-center md:justify-start gap-4">
-                        <Button class="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:opacity-90">
+                        <Button class="bg-gradient-to-r from-[#249dd8] via-blue-400 to-[#249dd8] text-white hover:opacity-90">
                             Get Started
                         </Button>
                         <Button variant="outline" class="flex items-center gap-2">
@@ -115,8 +115,7 @@ const rewards = [
                     </div>
                 </div>
                 <div class="flex-1 text-center md:text-left">
-                    <img class="dark:hidden" src="/assets/images/hero-image.png" alt="">
-                    <img class="hidden dark:block" src="/assets/images/hero-image-dark.png" alt="">
+                    <img  src="/assets/images/hero-image.png" alt="">
                 </div>
             </section>
         </header>
@@ -167,7 +166,7 @@ const rewards = [
                             <p class="text-gray-600">$50 – $4,000</p>
                         </CardHeader>
                         <CardContent>
-                            <p class="text-3xl font-bold text-blue-600">1.1% Daily</p>
+                            <p class="text-3xl font-bold text-[#249dd8]">1.1% Daily</p>
                         </CardContent>
                         <CardFooter class="flex justify-center">
                             <Link href="/register">
@@ -182,7 +181,7 @@ const rewards = [
                             <p class="text-gray-600">$5,000 – $9,000</p>
                         </CardHeader>
                         <CardContent>
-                            <p class="text-3xl font-bold text-blue-600">1.25% Daily</p>
+                            <p class="text-3xl font-bold text-[#249dd8]">1.25% Daily</p>
                         </CardContent>
                         <CardFooter class="flex justify-center">
                             <Link href="/register">
@@ -197,7 +196,7 @@ const rewards = [
                             <p class="text-gray-600">$10,000+</p>
                         </CardHeader>
                         <CardContent>
-                            <p class="text-3xl font-bold text-blue-600">1.5% Daily</p>
+                            <p class="text-3xl font-bold text-[#249dd8]">1.5% Daily</p>
                         </CardContent>
                         <CardFooter class="flex justify-center">
                             <Link href="/register">
@@ -240,7 +239,7 @@ const rewards = [
                             <h3 class="mb-2 text-lg font-semibold">
                                 ${{ reward.volume.toLocaleString() }} Team Volume
                             </h3>
-                            <p class="font-bold text-blue-600">
+                            <p class="font-bold text-[#249dd8]">
                                 {{ reward.bonus }}
                             </p>
                         </CardContent>
