@@ -93,6 +93,14 @@ class User extends Authenticatable implements Wallet
         return $levels;
     }
 
+    public function getNetworkMembersCount()
+    {
+        $members = count($this->directReferrals);
+        foreach($this->directReferrals as $referral) {
+            $members += $referral->directReferrals->count();
+        }
+        return $members;
+    }
 
     public function distributeReferralIncome($amount): void
     {

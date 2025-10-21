@@ -4,6 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Transaction\CreateTransactionRequest;
+use App\Http\Resources\UserTransactionResource;
+use App\Models\User;
+use App\Models\UserTransaction;
 use Bavix\Wallet\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,13 +15,13 @@ class DepositController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::where('payable_id', Auth::id())
+        $transactions = UserTransaction::query()->where('user_id', Auth::id())
             ->where('type', 'deposit')
             ->latest()
             ->get();
 
         return inertia('User/Deposits/Index', [
-            'transactions' => $transactions,
+            'transactions' => UserTransactionResource::collection($transactions)->resolve(),
         ]);
     }
 
@@ -29,7 +32,7 @@ class DepositController extends Controller
         $user = Auth::user();
 
         // Prevent duplicate pending deposits
-        $pending = Transaction::where('payable_id', $user->id)
+        $pending = UserTransaction::query()->where('user_id', $user->id)
             ->where('type', 'deposit')
             ->where('status', 'pending')
             ->exists();
@@ -38,8 +41,9 @@ class DepositController extends Controller
             return back()->with('error', 'You already have a pending deposit request.');
         }
 
-        Transaction::create([
-            'payable_id' => $user->id,
+        UserTransaction::query()->create([
+            'user_id' => $user->id,
+            'payable_type' => User::class,
             'type' => 'deposit',
             'amount' => $data['amount'],
             'status' => 'pending',

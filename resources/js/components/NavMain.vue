@@ -19,10 +19,10 @@ const page = usePage();
 
 <template>
     <SidebarGroup class="px-2 py-0">
-        <SidebarGroupLabel>Platform</SidebarGroupLabel>
         <SidebarMenu>
             <SidebarMenuItem v-for="item in items" :key="item.title">
                 <SidebarMenuButton
+                    v-if="page.props.auth.user.roles.some(role => item.roles.includes(role.name))"
                     as-child
                     :is-active="urlIsActive(item.href, page.url)"
                     :tooltip="item.title"

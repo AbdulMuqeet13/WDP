@@ -7,8 +7,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
-import { Form, Head } from '@inertiajs/vue3';
+import { Form, Head, usePage } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
+import { ref } from 'vue';
+
+const page = usePage();
+const query = page.url.split('?')[1];
+const referral = ref('');
+if (query) {
+    const params = new URLSearchParams(query)
+    referral.value = params.get('referral_code') || '';
+}
 </script>
 
 <template>
@@ -24,6 +33,13 @@ import { LoaderCircle } from 'lucide-vue-next';
             v-slot="{ errors, processing }"
             class="flex flex-col gap-6"
         >
+            <Input
+                v-if="referral"
+                id="referral_code"
+                name="referral_code"
+                type="hidden"
+                :defaultValue="referral"
+            />
             <div class="grid gap-6">
                 <div class="grid gap-2">
                     <Label for="name">Name</Label>

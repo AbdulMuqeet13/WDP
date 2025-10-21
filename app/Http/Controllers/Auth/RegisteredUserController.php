@@ -36,8 +36,8 @@ class RegisteredUserController extends Controller
         ]);
 
         $referrer = null;
-        if ($request->has('ref')) {
-            $referrer = User::query()->where('referral_code', $request->ref)->first();
+        if ($request->has('referral_code')) {
+            $referrer = User::query()->where('referral_code', $request->referral_code)->first();
         }
 
         $user = User::create([

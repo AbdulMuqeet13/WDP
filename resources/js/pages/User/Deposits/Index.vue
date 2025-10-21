@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card'
-import { Table, TableHeader, TableHead, TableRow, TableCell, TableBody } from '@/components/ui/table'
+import { type BreadcrumbItem } from '@/types';
 import DataTable from '@/components/DataTable.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/user/deposits';
@@ -49,14 +49,8 @@ const columns = [
                 </CardContent>
             </Card>
 
-            <Card class="shadow-md border rounded-2xl">
-                <CardHeader>
-                    <CardTitle class="text-xl font-semibold">My Deposit Requests</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <DataTable :columns="columns" :data="transactions" />
-                </CardContent>
-            </Card>
+            <h3 class="mb-6 text-xl font-semibold">My Deposit Requests</h3>
+            <DataTable :columns="columns" :data="transactions" />
         </div>
     </AppLayout>
 </template>

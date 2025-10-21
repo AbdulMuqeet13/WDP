@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TransactionResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,20 +18,11 @@ class WalletController extends Controller
         $walletTransactions = $user->transactions()
             ->latest()
             ->take(50)
-            ->get()
-            ->map(function ($t) {
-                return [
-                    'amount' => $t->amount,
-                    'type' => $t->type,
-                    'meta' => $t->meta,
-                    'confirmed' => $t->confirmed,
-                    'created_at' => $t->created_at->toDateTimeString(),
-                ];
-            });
+            ->get();
 
         return Inertia::render('User/Wallet/Index', [
             'balance' => $user->balance,
-            'transactions' => $walletTransactions,
+            'transactions' => TransactionResource::collection($walletTransactions)->resolve(),
         ]);
     }
 }

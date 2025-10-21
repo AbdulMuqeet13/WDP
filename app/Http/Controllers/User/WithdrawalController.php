@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Bavix\Wallet\Models\Transaction;
+use App\Http\Resources\UserTransactionResource;
+use App\Models\UserTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,13 +12,13 @@ class WithdrawalController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::where('payable_id', Auth::id())
+        $transactions = UserTransaction::query()->where('user_id', Auth::id())
             ->where('type', 'withdraw')
             ->latest()
             ->get();
 
         return inertia('User/Withdrawals/Index', [
-            'transactions' => $transactions,
+            'transactions' => UserTransactionResource::collection($transactions)->resolve(),
         ]);
     }
 
@@ -35,7 +36,7 @@ class WithdrawalController extends Controller
         }
 
         // Prevent duplicate pending withdrawals
-        $pending = Transaction::where('payable_id', $user->id)
+        $pending = UserTransaction::query()->where('user_id', $user->id)
             ->where('type', 'withdraw')
             ->where('status', 'pending')
             ->exists();
@@ -44,8 +45,8 @@ class WithdrawalController extends Controller
             return back()->with('error', 'You already have a pending withdrawal request.');
         }
 
-        Transaction::create([
-            'payable_id' => $user->id,
+        UserTransaction::query()->create([
+            'user_id' => $user->id,
             'type' => 'withdraw',
             'amount' => $request->amount,
             'status' => 'pending',

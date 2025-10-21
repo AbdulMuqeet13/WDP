@@ -4,23 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Transaction\UpdateTransactionRequest;
-use Bavix\Wallet\Models\Transaction;
+use App\Http\Resources\UserTransactionResource;
+use App\Models\UserTransaction;
 
 class TransactionController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::with('user')
+        $transactions = UserTransaction::query()->with('user')
             ->where('status', 'pending')
             ->orderBy('created_at', 'desc')
             ->get();
 
         return inertia('admin/transactions/Index', [
-            'transactions' => $transactions,
+            'transactions' => UserTransactionResource::collection($transactions)->resolve(),
         ]);
     }
 
-    public function update(Transaction $transaction, UpdateTransactionRequest $request)
+    public function update(UserTransaction $transaction, UpdateTransactionRequest $request)
     {
         $data = $request->validated();
         if ($transaction->status !== 'pending') {
