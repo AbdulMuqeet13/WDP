@@ -51,7 +51,6 @@ const mainNavItems: NavItem[] = [
         icon: BookUp,
     }
 ];
-
 </script>
 
 <template>
