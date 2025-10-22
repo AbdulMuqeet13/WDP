@@ -9,6 +9,11 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
+// About page route
+Route::get('/about', function () {
+    return Inertia::render('About');
+})->name('about');
+
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
