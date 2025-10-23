@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavMain from '@/components/NavMain.vue';
+import { toast } from "vue-sonner"
 import {
     Sidebar,
     SidebarContent,
@@ -9,7 +10,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
+import { dashboard, home } from '@/routes';
 import { index } from '@/routes/admin/users';
 import { index as transactions } from '@/routes/admin/transactions';
 import { index as wallets } from '@/routes/user/wallet';
@@ -26,6 +27,7 @@ import {
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 import NavUser from '@/components/NavUser.vue';
+import { Button } from '@/components/ui/button';
 
 const mainNavItems: NavItem[] = [
     {
@@ -73,7 +75,7 @@ const mainNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
+                        <Link :href="home()">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>

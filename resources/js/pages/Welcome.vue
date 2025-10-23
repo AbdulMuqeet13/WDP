@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import { login, register } from '@/routes';
+import { CheckCircle } from "lucide-vue-next";
 import { Head, Link } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,17 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Sun, Moon, Play } from "lucide-vue-next"
 import { useAppearance } from '@/composables/useAppearance';
-import { NavigationMenu } from '@/components/ui/navigation-menu';
 import GuestLayout from '@/layouts/guest/GuestLayout.vue';
-
-
-const { appearance, updateAppearance } = useAppearance();
-
-// Theme management
-const toggleTheme = () => {
-    console.log(appearance.value);
-    updateAppearance(appearance.value === "dark" ? "light" : "dark")
-}
 
 const levels = [20, 15, 10, 10, 5, 3, 3, 3, 3, 3];
 const rewards = [
@@ -43,7 +34,7 @@ const rewards = [
         <GuestLayout>
             <template #hero-section>
                 <section
-                    class="container flex flex-col-reverse md:flex-row items-center justify-between py-20 gap-12 min-h-[88vh]">
+                    class=" flex flex-col-reverse md:flex-row items-center justify-between py-20 gap-12 min-h-[88vh]">
                     <!-- Text -->
                     <div class="flex-1 text-center md:text-left">
                         <h5 class="text-sm uppercase tracking-wide text-[#249dd8] font-semibold mb-2">
@@ -74,9 +65,9 @@ const rewards = [
                     </div>
                 </section>
             </template>
-            <section class="py-20 container text-center">
+            <section class="py-20 w-11/12 text-center">
                 <h2 class="text-3xl font-bold mb-8">Why Choose Us?</h2>
-                <div class="grid gap-8 md:grid-cols-3 justify-center">
+                <div class="grid gap-8 md:grid-cols-3 justify-center  ">
                     <Card>
                         <CardHeader>
                             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="mx-auto mb-4 w-16" />
@@ -109,61 +100,126 @@ const rewards = [
                 </div>
             </section>
 
+
+            <!-- WDP Crypto Card Section -->
+            <section class="py-20 w-full transition-colors duration-300">
+                <div class="w-11/12 mx-auto flex flex-col md:flex-row items-center gap-12">
+                    <!-- Left: Text -->
+                    <div class="flex-1 text-center md:text-left space-y-6">
+                        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-black dark:text-white">
+                            Experience Smart Payments with <span class="text-[#249dd8]">WDP Crypto Card</span>
+                        </h2>
+                        <p class="text-muted-foreground  mb-6">
+                            Spend, shop, and pay bills anywhere in India with secure transactions, instant balance updates, and exclusive cashback rewards.
+                        </p>
+
+                        <ul class="space-y-4 text-left md:text-left">
+                            <li class="flex items-center gap-3 text-base md:text-lg  text-gray-800 dark:text-gray-200">
+                                <CheckCircle class="w-6 h-6 text-[#249dd8]"/>
+                                Freedom to Pay Anywhere: Top up your wallet in seconds and pay at any store or online platform.
+                            </li>
+                            <li class="flex items-center gap-3 text-base md:text-lg  text-gray-800 dark:text-gray-200">
+                                <CheckCircle class="w-6 h-6 text-[#249dd8]"/>
+                                Earn While You Pay: Get exclusive discounts, cashback, and referral bonuses on every transaction.
+                            </li>
+                            <li class="flex items-center gap-3 text-base md:text-lg  text-gray-800 dark:text-gray-200">
+                                <CheckCircle class="w-6 h-6 text-[#249dd8]"/>
+                                One Card. Unlimited Possibilities: Shop, pay bills, and manage your money digitally with ease.
+                            </li>
+                            <li class="flex items-center gap-3 text-base md:text-lg  text-gray-800 dark:text-gray-200">
+                                <CheckCircle class="w-6 h-6 text-[#249dd8]"/>
+                                Your Money, Your Way: Top up, withdraw, or pay anytime, anywhere — fully under your control.
+                            </li>
+                            <li class="flex items-center gap-3 text-base md:text-lg  text-gray-800 dark:text-gray-200">
+                                <CheckCircle class="w-6 h-6 text-[#249dd8]"/>
+                                Shop More, Earn More: Every transaction brings you closer to exciting rewards and bonuses.
+                            </li>
+                        </ul>
+
+                        <div class="mt-8">
+                            <Link href="/register">
+                                <Button class="bg-gradient-to-r from-[#249dd8] via-blue-400 to-[#249dd8] text-white hover:opacity-90">
+                                    Get Your WDP Card
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <!-- Right: Single Card Image with theme-based background -->
+                    <div class="flex-1 text-center md:text-right">
+                        <div class="inline-block p-4 rounded-xl bg-white dark:bg-black transition-colors duration-300">
+                            <img src="/assets/images/crypto-card.png" class="w-72 md:w-[70%] mx-auto" alt="WDP Crypto Card">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
             <!-- Investment Plans -->
             <section class="py-20 bg-muted w-full">
-                <div class="container text-center mx-auto">
+                <div class="w-11/12 text-center mx-auto">
                     <h2 class="text-3xl font-bold mb-8">Investment Plans</h2>
                     <div class="grid gap-8 md:grid-cols-3">
-                        <Card>
-                            <CardHeader>
-                                <h3 class="text-xl font-bold">Starter</h3>
-                                <p class="text-gray-600">$50 – $4,000</p>
+                        <!-- Starter Card -->
+                        <Card class="p-6 space-y-4 text-center shadow-md rounded-2xl">
+                            <CardHeader class="space-y-2">
+                                <h3 class="text-2xl font-bold">Starter</h3>
+                                <p class="text-gray-600 text-base">$50 – $4,000</p>
                             </CardHeader>
-                            <CardContent>
-                                <p class="text-3xl font-bold text-[#249dd8]">1.1% Daily</p>
+
+                            <CardContent class="pt-2 pb-4">
+                                <p class="text-3xl font-bold text-[#249dd8]">1.0% Daily</p>
                             </CardContent>
-                            <CardFooter class="flex justify-center">
+
+                            <CardFooter class="flex justify-center pt-2">
                                 <Link href="/register">
-                                    <Button>Invest Now</Button>
+                                    <Button class="px-6 py-2 text-base">Invest Now</Button>
                                 </Link>
                             </CardFooter>
                         </Card>
 
-                        <Card>
-                            <CardHeader>
-                                <h3 class="text-xl font-bold">Silver</h3>
-                                <p class="text-gray-600">$5,000 – $9,000</p>
+                        <!-- Silver Card -->
+                        <Card class="p-6 space-y-4 text-center shadow-md rounded-2xl">
+                            <CardHeader class="space-y-2">
+                                <h3 class="text-2xl font-bold">Silver</h3>
+                                <p class="text-gray-600 text-base">$5,000 – $9,000</p>
                             </CardHeader>
-                            <CardContent>
+
+                            <CardContent class="pt-2 pb-4">
                                 <p class="text-3xl font-bold text-[#249dd8]">1.25% Daily</p>
                             </CardContent>
-                            <CardFooter class="flex justify-center">
+
+                            <CardFooter class="flex justify-center pt-2">
                                 <Link href="/register">
-                                    <Button>Invest Now</Button>
+                                    <Button class="px-6 py-2 text-base">Invest Now</Button>
                                 </Link>
                             </CardFooter>
                         </Card>
 
-                        <Card>
-                            <CardHeader>
-                                <h3 class="text-xl font-bold">Gold</h3>
-                                <p class="text-gray-600">$10,000+</p>
+                        <!-- Gold Card -->
+                        <Card class="p-6 space-y-4 text-center shadow-md rounded-2xl">
+                            <CardHeader class="space-y-2">
+                                <h3 class="text-2xl font-bold">Gold</h3>
+                                <p class="text-gray-600 text-base">$10,000+</p>
                             </CardHeader>
-                            <CardContent>
-                                <p class="text-3xl font-bold text-[#249dd8]">1.5% Daily</p>
+
+                            <CardContent class="pt-2 pb-4">
+                                <p class="text-3xl font-bold text-[#249dd8]">1.50% Daily</p>
                             </CardContent>
-                            <CardFooter class="flex justify-center">
+
+                            <CardFooter class="flex justify-center pt-2">
                                 <Link href="/register">
-                                    <Button>Invest Now</Button>
+                                    <Button class="px-6 py-2 text-base">Invest Now</Button>
                                 </Link>
                             </CardFooter>
                         </Card>
                     </div>
                 </div>
             </section>
-
             <!-- Referral Levels -->
-            <section class="py-20 container text-center">
+            <section class="py-20 w-11/12 text-center">
                 <h2 class="text-3xl font-bold mb-8">Referral Income Levels</h2>
                 <p class="max-w-2xl mx-auto mb-6">
                     Earn passive income from your team's success. Receive level-based ROI commissions up to 10 levels.
@@ -181,7 +237,7 @@ const rewards = [
 
             <!-- Rewards -->
             <section class="py-20 bg-muted w-full">
-                <div class="container text-center mx-auto">
+                <div class="w-11/12 text-center mx-auto">
                     <h2 class="text-3xl font-bold mb-8">Exclusive Rewards</h2>
                     <div class="grid gap-8 md:grid-cols-3">
                         <Card

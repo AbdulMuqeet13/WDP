@@ -1,10 +1,18 @@
 <script setup lang="ts">
-import { login, register } from '@/routes';
+import { login, register, dashboard } from '@/routes';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { Moon, Play, Sun } from 'lucide-vue-next';
 import { NavigationMenu } from '@/components/ui/navigation-menu';
+import { useAppearance } from '@/composables/useAppearance';
+
+const { appearance, updateAppearance } = useAppearance();
+const page = usePage();
+// Theme management
+const toggleTheme = () => {
+    updateAppearance(appearance.value === "dark" ? "light" : "dark")
+}
 </script>
 <template>
     <div class="flex flex-col min-h-screen bg-background text-foreground items-center">
@@ -40,6 +48,8 @@ import { NavigationMenu } from '@/components/ui/navigation-menu';
                     </NavigationMenuItem>
                 </NavigationMenu>
 
+
+
                 <!-- Right Section -->
                 <div class="flex items-center gap-3">
                     <!-- Theme Toggle -->
@@ -48,17 +58,25 @@ import { NavigationMenu } from '@/components/ui/navigation-menu';
                         <Moon v-else class="h-5 w-5" />
                     </Button>
 
-                    <!-- Auth Buttons -->
-                    <Link :href="login()">
-                        <Button variant="outline">Login</Button>
-                    </Link>
-                    <Link :href="register()">
-                        <Button
-                            class="bg-gradient-to-r from-[#249dd8] via-blue-400 to-[#249dd8] text-white hover:opacity-90">
-                            Join Us
-                        </Button>
-                    </Link>
+                    <!-- ✅ Conditional Auth Buttons / Dashboard -->
+                    <template v-if="!$page.props.auth?.user">
+                        <Link :href="login()">
+                            <Button variant="outline">Login</Button>
+                        </Link>
+                        <Link :href="register()">
+                            <Button class="bg-gradient-to-r from-[#249dd8] via-blue-400 to-[#249dd8] text-white hover:opacity-90">
+                                Join Us
+                            </Button>
+                        </Link>
+                    </template>
+
+                    <template v-else>
+                        <Link :href="dashboard()">
+                            <Button variant="default" class="bg-gradient-to-r from-[#249dd8] via-blue-400 to-[#249dd8] text-white hover:opacity-90"  >Dashboard</Button>
+                        </Link>
+                    </template>
                 </div>
+
             </nav>
 
             <!-- Hero Section -->
