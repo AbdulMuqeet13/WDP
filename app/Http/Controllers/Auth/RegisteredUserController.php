@@ -36,8 +36,8 @@ class RegisteredUserController extends Controller
         ]);
 
         $referrer = null;
-        if ($request->has('ref')) {
-            $referrer = User::query()->where('referral_code', $request->ref)->first();
+        if ($request->has('referral_code')) {
+            $referrer = User::query()->where('referral_code', $request->referral_code)->first();
         }
 
         $user = User::create([
@@ -47,6 +47,9 @@ class RegisteredUserController extends Controller
             'referred_by' => $referrer?->id,
             'referral_level' => $referrer ? $referrer->referral_level + 1 : 0,
         ]);
+
+        // Assign default role
+        $user->assignRole('user');
 
         event(new Registered($user));
 
