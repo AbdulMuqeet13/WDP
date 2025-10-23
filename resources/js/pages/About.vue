@@ -33,11 +33,11 @@ import GuestLayout from '../layouts/guest/GuestLayout.vue'
                         </p>
                     </div>
                     <div class="flex justify-center">
-                        <img
-                            src="/images/mission.svg"
-                            alt="Mission Illustration"
-                            class="w-80 h-auto"
-                        />
+<!--                        <img-->
+<!--                            src="/images/mission.svg"-->
+<!--                            alt="Mission Illustration"-->
+<!--                            class="w-80 h-auto"-->
+<!--                        />-->
                     </div>
                 </div>
             </section>
@@ -80,33 +80,33 @@ import GuestLayout from '../layouts/guest/GuestLayout.vue'
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
                         <Card class="shadow-lg">
                             <CardHeader>
-                                <img
-                                    src="/images/team1.jpg"
-                                    alt="Team Member"
-                                    class="rounded-full w-24 h-24 mx-auto mb-4 object-cover"
-                                />
+<!--                                <img-->
+<!--                                    src="/images/team1.jpg"-->
+<!--                                    alt="Team Member"-->
+<!--                                    class="rounded-full w-24 h-24 mx-auto mb-4 object-cover"-->
+<!--                                />-->
                                 <CardTitle>Sarah Mitchell</CardTitle>
                                 <p class="text-muted-foreground text-sm">Chief Executive Officer</p>
                             </CardHeader>
                         </Card>
                         <Card class="shadow-lg">
                             <CardHeader>
-                                <img
-                                    src="/images/team2.jpg"
-                                    alt="Team Member"
-                                    class="rounded-full w-24 h-24 mx-auto mb-4 object-cover"
-                                />
+<!--                                <img-->
+<!--                                    src="/images/team2.jpg"-->
+<!--                                    alt="Team Member"-->
+<!--                                    class="rounded-full w-24 h-24 mx-auto mb-4 object-cover"-->
+<!--                                />-->
                                 <CardTitle>John Carter</CardTitle>
                                 <p class="text-muted-foreground text-sm">Chief Investment Officer</p>
                             </CardHeader>
                         </Card>
                         <Card class="shadow-lg">
                             <CardHeader>
-                                <img
-                                    src="/images/team3.jpg"
-                                    alt="Team Member"
-                                    class="rounded-full w-24 h-24 mx-auto mb-4 object-cover"
-                                />
+<!--                                <img-->
+<!--                                    src="/images/team3.jpg"-->
+<!--                                    alt="Team Member"-->
+<!--                                    class="rounded-full w-24 h-24 mx-auto mb-4 object-cover"-->
+<!--                                />-->
                                 <CardTitle>Lisa Wong</CardTitle>
                                 <p class="text-muted-foreground text-sm">Head of Partnerships</p>
                             </CardHeader>

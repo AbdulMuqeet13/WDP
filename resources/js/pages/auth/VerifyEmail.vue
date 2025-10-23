@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import EmailVerificationNotificationController from '@/actions/App/Http/Controllers/Auth/EmailVerificationNotificationController';
+// import EmailVerificationNotificationController from '@/actions/App/Http/Controllers/Auth/EmailVerificationNotificationController';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
 import AuthLayout from '@/layouts/AuthLayout.vue';
@@ -27,23 +27,23 @@ defineProps<{
             provided during registration.
         </div>
 
-        <Form
-            v-bind="EmailVerificationNotificationController.store.form()"
-            class="space-y-6 text-center"
-            v-slot="{ processing }"
-        >
-            <Button :disabled="processing" variant="secondary">
-                <LoaderCircle v-if="processing" class="h-4 w-4 animate-spin" />
-                Resend verification email
-            </Button>
+<!--        <Form-->
+<!--            v-bind="EmailVerificationNotificationController.store.form()"-->
+<!--            class="space-y-6 text-center"-->
+<!--            v-slot="{ processing }"-->
+<!--        >-->
+<!--            <Button :disabled="processing" variant="secondary">-->
+<!--                <LoaderCircle v-if="processing" class="h-4 w-4 animate-spin" />-->
+<!--                Resend verification email-->
+<!--            </Button>-->
 
-            <TextLink
-                :href="logout()"
-                as="button"
-                class="mx-auto block text-sm"
-            >
-                Log out
-            </TextLink>
-        </Form>
+<!--            <TextLink-->
+<!--                :href="logout()"-->
+<!--                as="button"-->
+<!--                class="mx-auto block text-sm"-->
+<!--            >-->
+<!--                Log out-->
+<!--            </TextLink>-->
+<!--        </Form>-->
     </AuthLayout>
 </template>
