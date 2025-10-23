@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import NavMain from '@/components/NavMain.vue';
-import { toast } from "vue-sonner"
 import {
     Sidebar,
     SidebarContent,
@@ -27,7 +26,6 @@ import {
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 import NavUser from '@/components/NavUser.vue';
-import { Button } from '@/components/ui/button';
 
 const mainNavItems: NavItem[] = [
     {

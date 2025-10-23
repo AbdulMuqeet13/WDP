@@ -32,9 +32,13 @@ class TransactionController extends Controller
             $user = $transaction->user;
 
             if ($transaction->type === 'deposit') {
-                $user->deposit($transaction->amount);
+                $user->deposit($transaction->amount, [
+                    'type' => 'User Deposit',
+                ]);
             } elseif ($transaction->type === 'withdraw') {
-                $user->withdraw($transaction->amount);
+                $user->withdraw($transaction->amount, [
+                    'type' => 'User Withdraw',
+                ]);
             }
         }
 

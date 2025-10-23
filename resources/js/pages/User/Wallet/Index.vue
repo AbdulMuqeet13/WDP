@@ -22,7 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const columns = [
-    { accessorKey: 'type', header: 'Type' },
+    { accessorKey: 'meta.type', header: 'Type' },
     { accessorKey: 'amount', header: 'Amount' },
     { accessorKey: 'created_at', header: 'Date' },
 ]

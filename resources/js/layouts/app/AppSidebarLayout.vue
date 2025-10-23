@@ -6,8 +6,9 @@ import AppSidebarHeader from '@/components/AppSidebarHeader.vue';
 import type { BreadcrumbItemType } from '@/types';
 import { toast, Toaster } from 'vue-sonner';
 import 'vue-sonner/style.css'
-import { Button } from '@/components/ui/button';
 import { useAppearance } from '@/composables/useAppearance';
+import { usePage } from '@inertiajs/vue3';
+import { watch } from 'vue';
 
 interface Props {
     breadcrumbs?: BreadcrumbItemType[];
@@ -18,23 +19,29 @@ withDefaults(defineProps<Props>(), {
 });
 
 const { appearance } = useAppearance();
+const { flash } = usePage().props;
 
+watch(() => flash,
+    () =>{
+        if (flash?.success) {
+            toast.success('Success', {
+                description: flash.success,
+            });
+        }
+        if (flash?.error) {
+            toast.error('Error', {
+                description: flash.error,
+            });
+        }
+    })
 </script>
 
 <template>
+
     <AppShell variant="sidebar">
         <AppSidebar />
         <AppContent variant="sidebar" class="overflow-x-hidden">
             <AppSidebarHeader :breadcrumbs="breadcrumbs" />
-            <Button
-                variant="outline" @click="() => {
-                  toast.error('Event has been created', {
-                    description: 'Sunday, December 03, 2023 at 9:00 AM',
-                  })
-                }"
-            >
-                Show Toast
-            </Button>
             <slot />
         </AppContent>
     </AppShell>
