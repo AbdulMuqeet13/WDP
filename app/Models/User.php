@@ -61,7 +61,7 @@ class User extends Authenticatable implements Wallet
     protected static function booted(): void
     {
         static::created(function ($user) {
-            $user->referral_code = 'WDP' . strtoupper(Str::random(6));
+            $user->referral_code = 'WDP' . mt_rand(10000, 99999);
             $user->save();
         });
     }
@@ -93,14 +93,23 @@ class User extends Authenticatable implements Wallet
         return $levels;
     }
 
-    public function getNetworkMembersCount()
+    public function getNetworkMembersCount(): int
     {
-        $members = count($this->directReferrals);
-        foreach($this->directReferrals as $referral) {
-            $members += $referral->directReferrals->count();
-        }
-        return $members;
+        $count = 0;
+
+        $addReferrals = function ($user) use (&$addReferrals, &$count) {
+            foreach ($user->directReferrals as $referral) {
+                $count++;
+                // recursively add that referral’s own referrals
+                $addReferrals($referral);
+            }
+        };
+
+        $addReferrals($this);
+
+        return $count;
     }
+
 
     public function distributeReferralIncome($amount): void
     {

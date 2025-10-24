@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
         $user->assignRole('admin');
+        $this->call(UserReferralSeeder::class);
     }
 }
