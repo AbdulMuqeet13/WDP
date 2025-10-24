@@ -38,6 +38,7 @@ if (query) {
                 <div v-if="referral" class="grid gap-2">
                     <Label for="referral_code">Referral Code</Label>
                     <Input
+                        readonly
                         id="referral_code"
                         name="referral_code"
                         type="text"
