@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AppLogoIcon from '@/components/AppLogoIcon.vue';
-import { login, register } from '@/routes';
 import { CheckCircle } from "lucide-vue-next";
 import { Head, Link } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
@@ -10,11 +8,9 @@ import {
     CardFooter,
     CardHeader,
 } from '@/components/ui/card';
-import { Sun, Moon, Play } from "lucide-vue-next"
-import { useAppearance } from '@/composables/useAppearance';
 import GuestLayout from '@/layouts/guest/GuestLayout.vue';
 
-const levels = [20, 15, 10, 10, 5, 3, 3, 3, 3, 3];
+const levels = [20, 15, 10, 10, 10, 5, 5, 5, 3, 3, 1.1, 1.1, 1.1, 1.1, 1.1];
 const rewards = [
     { volume: 10000, bonus: '$250 Bonus' },
     { volume: 25000, bonus: '$750 Bonus' },
@@ -54,10 +50,6 @@ const rewards = [
                                 class="bg-gradient-to-r from-[#249dd8] via-blue-400 to-[#249dd8] text-white hover:opacity-90">
                                 Get Started
                             </Button>
-                            <Button variant="outline" class="flex items-center gap-2">
-                                <Play class="w-4 h-4" />
-                                Watch Video
-                            </Button>
                         </div>
                     </div>
                     <div class="flex-1 text-center md:text-left">
@@ -74,7 +66,7 @@ const rewards = [
                         </CardHeader>
                         <CardContent>
                             <h3 class="text-xl font-semibold mb-2">Daily ROI</h3>
-                            <p>Earn 1.1%–1.5% returns daily (Mon–Fri) on your investments.</p>
+                            <p>Earn 1.0%–1.50% returns daily (Mon–Fri) on your investments.</p>
                         </CardContent>
                     </Card>
 
