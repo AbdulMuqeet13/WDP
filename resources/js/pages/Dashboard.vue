@@ -8,6 +8,8 @@ import { BarChart } from "@/components/ui/chart-bar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, DollarSign,Ticket, Mail } from "lucide-vue-next";
 import { Button } from '@/components/ui/button'
+import Milestone from '@/components/Milestone.vue'
+
 
 const props = defineProps({
     user: Object,
@@ -151,5 +153,9 @@ const copyReferralLink = async () => {
                 </Card>
             </div>
         </div>
+        <section class="p-8 space-y-6">
+            <h1 class="text-3xl font-bold text-foreground">Milestone</h1>
+            <Milestone />
+        </section>
     </AppLayout>
 </template>
