@@ -33,14 +33,17 @@ if (query) {
             v-slot="{ errors, processing }"
             class="flex flex-col gap-6"
         >
-            <Input
-                v-if="referral"
-                id="referral_code"
-                name="referral_code"
-                type="hidden"
-                :defaultValue="referral"
-            />
+
             <div class="grid gap-6">
+                <div v-if="referral" class="grid gap-2">
+                    <Label for="referral_code">Referral Code</Label>
+                    <Input
+                        id="referral_code"
+                        name="referral_code"
+                        type="text"
+                        :defaultValue="referral"
+                    />
+                </div>
                 <div class="grid gap-2">
                     <Label for="name">Name</Label>
                     <Input
