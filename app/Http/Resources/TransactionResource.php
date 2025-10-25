@@ -22,6 +22,7 @@ class TransactionResource extends JsonResource
             'meta' => $this->meta,
             'confirmed' => $this->confirmed,
             'created_at' => Carbon::parse($this->created_at)->format('d M, Y h:i A'),
+            'user' => new UserResource($this->when($this->payable, $this->payable)),
         ];
     }
 }

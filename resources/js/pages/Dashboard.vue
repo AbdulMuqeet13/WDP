@@ -13,6 +13,7 @@ const props = defineProps({
     stats: Object,
     recent_users: Array,
     recent_referrals: Array,
+    milestones: Array,
 })
 
 const copied = ref(false)
@@ -50,7 +51,7 @@ const columns = [
 
             <!-- USER DASHBOARD -->
             <div v-if="role === 'user'" class="space-y-6">
-                <UserDashboard :stats="stats" :recent_referrals="recent_referrals" :columns="columns" />
+                <UserDashboard :stats="stats" :recent_referrals="recent_referrals" :columns="columns" :milestones="milestones" />
             </div>
 
             <!-- ADMIN DASHBOARD -->

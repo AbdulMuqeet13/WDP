@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('wallet_balance', 12, 2)->default(0);
             $table->decimal('total_investment', 12, 2)->default(0);
             $table->decimal('total_referral_income', 12, 2)->default(0);
+            $table->boolean('is_cto')->default(false);
 
             $table->rememberToken();
             $table->timestamps();

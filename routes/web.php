@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\UserTransactionsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\WalletController;
@@ -33,13 +34,14 @@ Route::get('/terms', function () {
 
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', AdminUserController::class)->only(['index']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'update']);
+    Route::resource('user-transactions', UserTransactionsController::class)->only(['index']);
 });
 
 
-Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
+Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
     Route::resource('users', UserController::class)->only(['index']);
     Route::resource('/wallet', WalletController::class)->only(['index']);
     Route::resource('/deposits', DepositController::class)->only(['index', 'store']);

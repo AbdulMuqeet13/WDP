@@ -7,11 +7,13 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import DataTable from '@/components/DataTable.vue';
+import Milestone from '@/components/Milestone.vue';
 
 defineProps({
     stats: Object,
     recent_referrals: Array,
     columns: Array,
+    milestones: Array,
 })
 
 // const data = [
@@ -54,6 +56,11 @@ defineProps({
             </CardContent>
         </Card>
     </div>
+
+    <section class="space-y-6">
+        <h1 class="text-3xl font-bold text-foreground">Milestone</h1>
+        <Milestone :milestones="milestones"/>
+    </section>
 </template>
 
 <style scoped></style>

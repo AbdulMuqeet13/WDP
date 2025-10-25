@@ -109,9 +109,8 @@ const handleInput = debounce((event: Event) => {
 </script>
 
 <template>
-    <div class="flex items-center py-4">
+    <div v-if="enableSearch" class="flex items-center py-4">
         <Input
-            v-if="enableSearch"
             class="max-w-sm"
             placeholder="Search here..."
             @input="handleInput"

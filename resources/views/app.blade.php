@@ -3,6 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{-- Primary Meta Tags --}}
+        <meta name="title" content="{{ config('app.name', 'MyApp') }}">
+        <meta name="description" content="Earn rewards, track investments, and grow your network with {{ config('app.name', 'MyApp') }} — a next-generation platform for referral-based income and financial empowerment.">
+        <meta name="keywords" content="{{ config('app.name', 'MyApp') }} Rewards App, Investment Platform, Referral System, Wallet, CTO Royalty, Thailand Tour, Dubai Tour">
+        <meta name="author" content="MyApp Team" />
+        <meta name="robots" content="index, follow" />
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
@@ -32,9 +38,9 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        <link rel="icon" href="{{asset('assets/images/wdp-logo-dark.png')}}" sizes="any">
-        <link rel="icon" href="{{asset('assets/images/wdp-logo-dark.png')}}" type="image/svg+xml">
-        <link rel="apple-touch-icon" href="{{asset('assets/images/wdp-logo-dark.png')}}">
+        <link rel="icon" href="{{asset('assets/images/wdp-logo.png')}}" sizes="any">
+        <link rel="icon" href="{{asset('assets/images/wdp-logo.png')}}" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="{{asset('assets/images/wdp-logo.png')}}">
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />

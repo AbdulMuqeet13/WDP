@@ -22,6 +22,7 @@ const columns = [
     { accessorKey: 'wallet_balance', header: 'Wallet Balance', dataType: 'text' },
     { accessorKey: 'total_investment', header: 'Total Investment', dataType: 'text' },
     { accessorKey: 'total_referral_income', header: 'Total Referral Income', dataType: 'text' },
+    { accessorKey: 'network_members', header: 'Network Members', dataType: 'text' },
     { accessorKey: 'joining_date', header: 'Joining Date' },
 ];
 
@@ -51,7 +52,7 @@ const search = (input: string) => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Users" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="container mx-auto p-10">

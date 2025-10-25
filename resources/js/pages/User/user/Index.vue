@@ -22,6 +22,7 @@ const columns = [
     { accessorKey: 'wallet_balance', header: 'Wallet Balance' },
     { accessorKey: 'total_investment', header: 'Total Investment' },
     { accessorKey: 'total_referral_income', header: 'Total Referral Income' },
+    { accessorKey: 'network_members', header: 'Network Members', dataType: 'text' },
     { accessorKey: 'joining_date', header: 'Joining Date' },
 ];
 

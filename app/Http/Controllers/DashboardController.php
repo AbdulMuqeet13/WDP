@@ -50,6 +50,31 @@ class DashboardController extends Controller
             ->take(5)
             ->get(['name', 'email', 'created_at']);
 
+        // ✅ Self investment totals
+        $selfInvestment = $user->transactions()
+            ->whereJsonContains('meta->type', 'User Deposit')
+            ->sum('amount');
+
+        // ✅ Calculate progress for rewards
+        $thailandTarget = 2000;
+        $dubaiTarget = 5000;
+        $ctoReferrals = 20;
+        $ctoMinInvestment = 50;
+
+        $thailandProgress = min(100, ($selfInvestment / $thailandTarget) * 100);
+        $dubaiProgress = min(100, ($selfInvestment / $dubaiTarget) * 100);
+
+        // ✅ Check if all direct referrals invested at least $50
+        $qualifiedReferrals = $user->directReferrals->filter(function ($ref) use ($ctoMinInvestment) {
+            $refDeposit = $ref->transactions()
+                ->whereJsonContains('meta->type', 'User Deposit')
+                ->sum('amount');
+
+            return $refDeposit >= $ctoMinInvestment;
+        })->count();
+
+        $ctoProgress = min(100, ($qualifiedReferrals / $ctoReferrals) * 100);
+
         return Inertia::render('Dashboard', [
             'user' => new UserResource($user),
             'referral_url' => $referralUrl,
@@ -59,6 +84,23 @@ class DashboardController extends Controller
                 'network_income' => number_format($networkIncome, 2),
                 'total_deposits' => number_format($totalDeposits, 2),
                 'total_withdrawals' => number_format($totalWithdrawals, 2),
+            ],
+            'milestones' => [
+                [
+                    'title' => 'Self Investment',
+                    'description' => 'Deposit at least $2,000 and win an exclusive Thailand tour (4 nights, 5 days) with full luxury accommodation, guided sightseeing, and team networking events.',
+                    'progress' => round($thailandProgress, 2),
+                ],
+                [
+                    'title' => 'Self Investment',
+                    'description' => 'Deposit a minimum of $5,000 to unlock a premium Dubai tour (5 days, 4 nights), including desert safari, luxury hotel stay, and exclusive company dinner experience.',
+                    'progress' => round($dubaiProgress, 2),
+                ],
+                [
+                    'title' => 'CTO Royalty',
+                    'description' => 'Bring 20 Referrals, and each referral invests $50. The user will be promoted to CTO, and 3% of the company’s total 24-hour income will be equally distributed among all CTOs as Daily Royalty Income.',
+                    'progress' => round($ctoProgress, 2),
+                ],
             ],
             'recent_referrals' => UserResource::collection($recentReferrals)->resolve(),
         ]);

@@ -30,6 +30,7 @@ class User extends Authenticatable implements Wallet
         'password',
         'referral_code',
         'referred_by',
+        'is_cto',
     ];
 
     /**
@@ -105,6 +106,22 @@ class User extends Authenticatable implements Wallet
 
         return $levels;
     }
+
+    public function checkAndPromoteToCTO(): void
+    {
+        $qualifiedReferrals = $this->directReferrals->filter(function ($ref) {
+            $refDeposit = $ref->transactions()
+                ->whereJsonContains('meta->type', 'User Deposit')
+                ->sum('amount');
+
+            return $refDeposit >= 50;
+        })->count();
+
+        if ($qualifiedReferrals >= 20 && !$this->is_cto) {
+            $this->update(['is_cto' => true]);
+        }
+    }
+
 
     public function getNetworkMembersCount(): int
     {

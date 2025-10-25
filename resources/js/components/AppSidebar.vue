@@ -12,6 +12,7 @@ import {
 import { dashboard, home } from '@/routes';
 import { index } from '@/routes/admin/users';
 import { index as adminUsers} from '@/routes/admin/users';
+import { index as userTransactions } from '@/routes/admin/user-transactions';
 import { index as transactions } from '@/routes/admin/transactions';
 import { index as wallets } from '@/routes/user/wallet';
 import { index as deposits } from '@/routes/user/deposits';
@@ -48,8 +49,14 @@ const mainNavItems: NavItem[] = [
         roles: ['admin'],
     },
     {
-        title: 'Transactions',
+        title: 'Transactions Approval',
         href: transactions(),
+        icon: ArrowLeftRight,
+        roles: ['admin'],
+    },
+    {
+        title: 'User Transaction',
+        href: userTransactions(),
         icon: ArrowLeftRight,
         roles: ['admin'],
     },
