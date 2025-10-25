@@ -47,7 +47,7 @@ const tableActions = [
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="container mx-auto p-10">
             <h1 class="mb-6 text-2xl font-bold">Transactions Management</h1>
-            <DataTable :columns="columns" :data="transactions"  :actions="tableActions"/>
+            <DataTable :columns="columns" :tableData="transactions"  :actions="tableActions"/>
         </div>
     </AppLayout>
 </template>

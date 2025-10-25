@@ -42,16 +42,19 @@ class CreditDailyROI extends Command
             $users = User::role(['user'])->with('wallet')->get();
 
             foreach ($users as $user) {
+                $totalBalance = $user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sum('amount');
+                $totalWithdraw = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sum('amount');
+                $balance = $totalBalance - $totalWithdraw;
                 // Only credit if user has positive balance
-                if ($user->balance >= 50) {
-                    if ($user->balance >= 50 && $user->balance < 5000) {
+                if ($balance >= 50) {
+                    if ($balance >= 50 && $balance < 5000) {
                         $roiRate = 0.01;
-                    } elseif ($user->balance >= 5000 && $user->balance < 10000) {
+                    } elseif ($balance >= 5000 && $balance < 10000) {
                         $roiRate = 0.0125;
-                    } elseif ($user->balance >= 10000) {
+                    } elseif ($balance >= 10000) {
                         $roiRate = 0.015;
                     }
-                    $roi = $user->balance * $roiRate;
+                    $roi = $balance * $roiRate;
 
                     $user->deposit($roi, [
                         'type' => 'ROI Credit',

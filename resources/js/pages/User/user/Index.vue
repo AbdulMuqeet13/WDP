@@ -16,12 +16,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 const columns = [
-    { accessorKey: 'name', header: 'Name', dataType: 'text' },
-    { accessorKey: 'email', header: 'Email', dataType: 'text' },
-    { accessorKey: 'referral_code', header: 'Referral Code', dataType: 'text' },
-    { accessorKey: 'wallet_balance', header: 'Wallet Balance', dataType: 'text' },
-    { accessorKey: 'total_investment', header: 'Total Investment', dataType: 'text' },
-    { accessorKey: 'total_referral_income', header: 'Total Referral Income', dataType: 'text' },
+    { accessorKey: 'name', header: 'Name' },
+    { accessorKey: 'email', header: 'Email' },
+    { accessorKey: 'referral_code', header: 'Referral Code' },
+    { accessorKey: 'wallet_balance', header: 'Wallet Balance' },
+    { accessorKey: 'total_investment', header: 'Total Investment' },
+    { accessorKey: 'total_referral_income', header: 'Total Referral Income' },
     { accessorKey: 'joining_date', header: 'Joining Date' },
 ];
 
@@ -64,14 +64,6 @@ const search = (input: string) => {
                 @search="search"
                 :enableSearch="true"
             />
-            <!--            <div v-if="users.length">-->
-            <!--                <ReferralNode-->
-            <!--                    v-for="user in users"-->
-            <!--                    :key="user.id"-->
-            <!--                    :user="user"-->
-            <!--                />-->
-            <!--            </div>-->
-            <!--            <div v-else class="text-gray-500">No users found.</div>-->
         </div>
     </AppLayout>
 </template>

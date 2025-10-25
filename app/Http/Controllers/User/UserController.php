@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
@@ -14,7 +14,8 @@ class UserController extends Controller
     {
         $data = request()->all();
         $users = UserResource::collection(
-            User::role(['user'])
+            User::query()
+                ->where('referred_by')
                 ->where(function ($query) use ($data) {
                     if (isset($data['search'])) {
                         $query->where('name', 'LIKE', '%' . trim($data['search']) . '%')
@@ -23,23 +24,6 @@ class UserController extends Controller
                 })
                 ->paginate(10)
         );
-        return Inertia::render('admin/user/Index', compact('users'));
+        return Inertia::render('User/user/Index', compact('users'));
     }
-
-//    private function getReferralTree($user, $depth = 15)
-//    {
-//        if ($depth === 0) {
-//            return [];
-//        }
-//
-//        $referrals = User::where('referred_by', $user->id)
-//            ->select('id', 'name', 'email', 'referred_by')
-//            ->get();
-//
-//        foreach ($referrals as $referral) {
-//            $referral->referral_tree = $this->getReferralTree($referral, $depth - 1);
-//        }
-//
-//        return $referrals;
-//    }
 }

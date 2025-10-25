@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard, home } from '@/routes';
 import { index } from '@/routes/admin/users';
+import { index as adminUsers} from '@/routes/admin/users';
 import { index as transactions } from '@/routes/admin/transactions';
 import { index as wallets } from '@/routes/user/wallet';
 import { index as deposits } from '@/routes/user/deposits';
@@ -39,6 +40,12 @@ const mainNavItems: NavItem[] = [
         href: index(),
         icon: LayoutGrid,
         roles: ['user'],
+    },
+    {
+        title: 'Users',
+        href: adminUsers(),
+        icon: LayoutGrid,
+        roles: ['admin'],
     },
     {
         title: 'Transactions',

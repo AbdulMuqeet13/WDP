@@ -76,6 +76,19 @@ class User extends Authenticatable implements Wallet
         return $this->hasMany(User::class, 'referred_by');
     }
 
+    public function referralTree($depth = 15)
+    {
+        if ($depth <= 0) {
+            return $this->hasMany(User::class, 'referred_by');
+        }
+
+        return $this->hasMany(User::class, 'referred_by')
+            ->with(['referralTree' => function ($query) use ($depth) {
+                $query->with('wallet'); // optional: eager load wallet or stats
+            }])
+            ->select('id', 'name', 'email', 'referred_by');
+    }
+
     public function getReferralLevels($maxLevel = 15): array
     {
         $levels = [];
@@ -99,6 +112,9 @@ class User extends Authenticatable implements Wallet
 
         $addReferrals = function ($user) use (&$addReferrals, &$count) {
             foreach ($user->directReferrals as $referral) {
+                if ($user->id !== $this->id) {
+                    continue;
+                }
                 $count++;
                 // recursively add that referral’s own referrals
                 $addReferrals($referral);
@@ -109,29 +125,4 @@ class User extends Authenticatable implements Wallet
 
         return $count;
     }
-
-
-    public function distributeReferralIncome($amount): void
-    {
-        $commissionRates = config('referrals');
-        $referrer = $this->referrer;
-        $level = 1;
-
-        while ($referrer && $level <= 15) {
-            $commission = $amount * ($commissionRates[$level] ?? 0);
-
-//            if ($commission > 0) {
-//                ReferralIncome::create([
-//                    'user_id' => $referrer->id,
-//                    'from_user_id' => $this->id,
-//                    'level' => $level,
-//                    'amount' => $commission,
-//                ]);
-//            }
-
-            $referrer = $referrer->referrer;
-            $level++;
-        }
-    }
-
 }

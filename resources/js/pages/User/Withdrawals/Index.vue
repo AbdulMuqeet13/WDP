@@ -51,7 +51,7 @@ const columns = [
             </Card>
 
             <h3 class="mb-6 text-xl font-semibold">My Withdrawls</h3>
-            <DataTable :columns="columns" :data="transactions" />
+            <DataTable :columns="columns" :tableData="transactions" />
         </div>
     </AppLayout>
 </template>

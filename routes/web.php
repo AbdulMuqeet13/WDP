@@ -7,7 +7,8 @@ use App\Http\Controllers\User\WalletController;
 use App\Http\Controllers\User\WithdrawalController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\User\UserController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
@@ -33,17 +34,15 @@ Route::get('/terms', function () {
 Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('users', UserController::class)->only(['index']);
-
+    Route::resource('users', AdminUserController::class)->only(['index']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'update']);
 });
 
 
 Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
+    Route::resource('users', UserController::class)->only(['index']);
     Route::resource('/wallet', WalletController::class)->only(['index']);
-
     Route::resource('/deposits', DepositController::class)->only(['index', 'store']);
-
     Route::resource('/withdrawals', WithdrawalController::class)->only(['index', 'store']);
 });
 

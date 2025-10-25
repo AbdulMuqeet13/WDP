@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,10 +21,14 @@ class UserResource extends JsonResource
             "email" => $this->email,
             "referral_code" => $this->referral_code,
             "referred_by" => $this->referred_by,
+            "wallet_balance" => $this->wallet_balance,
+            "total_investment" => $this->total_investment,
+            "total_referral_income" => $this->total_referral_income,
             "referrer" => $this->whenLoaded('referrer'),
             "directReferrals" => $this->whenLoaded('directReferrals'),
             "direct_referrals_count" => $this->whenCounted('directReferrals'),
             "network_members" => $this->getNetworkMembersCount(),
+            'joining_date' => Carbon::parse($this->created_at)->format('d M, Y'),
         ];
     }
 }
