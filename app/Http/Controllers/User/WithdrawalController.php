@@ -26,6 +26,7 @@ class WithdrawalController extends Controller
     {
         $request->validate([
             'amount' => 'required|numeric|gt:0',
+            'wallet_address' => 'required|string'
         ]);
 
         $user = Auth::user();
@@ -51,6 +52,7 @@ class WithdrawalController extends Controller
             'amount' => $request->amount,
             'status' => 'pending',
             'description' => 'Withdrawal request awaiting admin approval',
+            'wallet_address' => $request->wallet_address,
         ]);
 
         return back()->with('success', 'Withdrawal request sent for admin approval.');

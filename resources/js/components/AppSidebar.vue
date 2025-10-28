@@ -9,7 +9,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, home } from '@/routes';
+import { dashboard, home, reports } from '@/routes';
 import { index } from '@/routes/admin/users';
 import { index as adminUsers} from '@/routes/admin/users';
 import { index as userTransactions } from '@/routes/admin/user-transactions';
@@ -25,6 +25,7 @@ import {
     Wallet,
     BookDown,
     BookUp,
+    FileChartColumnIncreasing,
 } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 import NavUser from '@/components/NavUser.vue';
@@ -77,6 +78,12 @@ const mainNavItems: NavItem[] = [
         href: withdrawals(),
         icon: BookUp,
         roles: ['user'],
+    },
+    {
+        title: 'Reports',
+        href: reports(),
+        icon: FileChartColumnIncreasing,
+        roles: ['admin', 'user'],
     },
 ];
 </script>

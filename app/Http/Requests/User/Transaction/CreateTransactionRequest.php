@@ -23,6 +23,7 @@ class CreateTransactionRequest extends FormRequest
     {
         return [
             'amount' => 'required|numeric|gt:0',
+            'screenshot' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }

@@ -12,6 +12,8 @@ class UserTransaction extends Model
         'amount',
         'status',
         'description',
+        'screenshot',
+        'wallet_address',
     ];
 
     public function user()

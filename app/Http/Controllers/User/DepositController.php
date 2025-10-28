@@ -37,6 +37,11 @@ class DepositController extends Controller
             ->where('status', 'pending')
             ->exists();
 
+        $path = null;
+        if ($request->hasFile('screenshot')) {
+            $path = $request->file('screenshot')->store('deposits', 'public');
+        }
+
         if ($pending) {
             return back()->with('error', 'You already have a pending deposit request.');
         }
@@ -48,6 +53,7 @@ class DepositController extends Controller
             'amount' => $data['amount'],
             'status' => 'pending',
             'description' => 'Deposit request awaiting admin approval',
+            'screenshot' => $path,
         ]);
 
         return back()->with('success', 'Deposit request submitted for admin approval.');

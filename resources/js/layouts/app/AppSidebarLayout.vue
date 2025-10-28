@@ -8,7 +8,7 @@ import { toast, Toaster } from 'vue-sonner';
 import 'vue-sonner/style.css'
 import { useAppearance } from '@/composables/useAppearance';
 import { usePage } from '@inertiajs/vue3';
-import { watch } from 'vue';
+import { computed, watch } from 'vue';
 
 interface Props {
     breadcrumbs?: BreadcrumbItemType[];
@@ -19,21 +19,24 @@ withDefaults(defineProps<Props>(), {
 });
 
 const { appearance } = useAppearance();
-const { flash } = usePage().props;
+const page = usePage();
 
-watch(() => flash,
+const flash = computed(() => page.props?.flash)
+
+watch(() => flash.value,
     () =>{
-        if (flash?.success) {
+        console.log(flash.value);
+        if (flash.value?.success) {
             toast.success('Success', {
-                description: flash.success,
+                description: flash.value.success,
             });
         }
-        if (flash?.error) {
+        if (flash.value?.error) {
             toast.error('Error', {
-                description: flash.error,
+                description: flash.value.error,
             });
         }
-    })
+    }, {deep: true, immediate: true})
 </script>
 
 <template>

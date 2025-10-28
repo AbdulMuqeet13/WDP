@@ -20,19 +20,20 @@ const page = usePage();
 <template>
     <SidebarGroup class="px-2 py-0">
         <SidebarMenu>
-            <SidebarMenuItem v-for="item in items" :key="item.title">
-                <SidebarMenuButton
-                    v-if="page.props.auth.user.roles.some(role => item.roles.includes(role.name))"
-                    as-child
-                    :is-active="urlIsActive(item.href, page.url)"
-                    :tooltip="item.title"
-                >
-                    <Link :href="item.href">
-                        <component :is="item.icon" />
-                        <span>{{ item.title }}</span>
-                    </Link>
-                </SidebarMenuButton>
-            </SidebarMenuItem>
+            <template v-for="item in items" :key="item.title">
+                <SidebarMenuItem v-if="page.props.auth.user.roles.some(role => item.roles.includes(role.name))">
+                    <SidebarMenuButton
+                        as-child
+                        :is-active="urlIsActive(item.href, page.url)"
+                        :tooltip="item.title"
+                    >
+                        <Link :href="item.href">
+                            <component :is="item.icon" />
+                            <span>{{ item.title }}</span>
+                        </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+            </template>
         </SidebarMenu>
     </SidebarGroup>
 </template>

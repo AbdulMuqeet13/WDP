@@ -75,6 +75,21 @@ class DashboardController extends Controller
 
         $ctoProgress = min(100, ($qualifiedReferrals / $ctoReferrals) * 100);
 
+        $dailyROI = $user->transactions()
+            ->whereJsonContains('meta->type', 'ROI Credit')
+            ->whereDate('created_at', now()->toDateString())
+            ->sum('amount');
+
+        $sponsorIncome = $user->transactions()
+            ->whereJsonContains('meta->type', 'Level Income')
+            ->sum('amount');
+
+        $ctoIncome = $user->transactions()
+            ->whereJsonContains('meta->type', 'CTO Royalty')
+            ->sum('amount');
+
+        // Total wallet balance (optional)
+        $walletBalance = $user->balanceFloat ?? 0;
         return Inertia::render('Dashboard', [
             'user' => new UserResource($user),
             'referral_url' => $referralUrl,
@@ -84,6 +99,10 @@ class DashboardController extends Controller
                 'network_income' => number_format($networkIncome, 2),
                 'total_deposits' => number_format($totalDeposits, 2),
                 'total_withdrawals' => number_format($totalWithdrawals, 2),
+                'daily_ROI' => number_format($dailyROI, 2),
+                'sponsor_income' => number_format($sponsorIncome, 2),
+                'CTO_income' => number_format($ctoIncome, 2),
+                'wallet_balance' => number_format($walletBalance, 2),
             ],
             'milestones' => [
                 [

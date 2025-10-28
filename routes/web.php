@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\UserTransactionsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\User\DepositController;
 use App\Http\Controllers\User\WalletController;
 use App\Http\Controllers\User\WithdrawalController;
@@ -32,7 +33,8 @@ Route::get('/terms', function () {
     return Inertia::render('TermsAndConditions');
 })->name('terms');
 
-Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('reports', [ReportController::class, 'index'])->middleware(['auth'])->name('reports');
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', AdminUserController::class)->only(['index']);
