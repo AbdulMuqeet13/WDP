@@ -57,7 +57,7 @@ class GetUserDashboardData
             ->sum('amount');
 
         // Total wallet balance (optional)
-        $walletBalance = $user->balanceFloat ?? 0;
+        $walletBalance = $user->balance ?? 0;
 
         return [
             'user' => new UserResource($user),

@@ -5,6 +5,7 @@ import { ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import AdminDashboard from '@/components/AdminDashboard.vue';
 import UserDashboard from '@/components/UserDashboard.vue';
+import { Badge } from '@/components/ui/badge';
 
 const props = defineProps({
     user: Object,
@@ -40,7 +41,12 @@ const columns = [
     <AppLayout>
         <div class="flex flex-col gap-6 p-6">
             <div class="flex justify-between items-center">
-                <h1 class="text-xl font-bold">Welcome, {{ user.data.name }}</h1>
+                <h1 class="text-xl font-bold flex items-end gap-3">
+                    <span>Welcome, {{ user.data.name }}</span>
+                    <Badge v-if="role === 'user'" :variant="stats.wallet_balance >= 50 ? '' : 'destructive'">
+                        {{stats.wallet_balance >= 50 ? 'Active' : 'Inactive'}}
+                    </Badge>
+                </h1>
                 <div v-if="role === 'user'" class="flex items-center gap-4">
                     <p><strong>Referral Code:</strong> {{ user.data.referral_code }}</p>
                     <Button variant="outline" size="sm" @click="copyReferralLink">

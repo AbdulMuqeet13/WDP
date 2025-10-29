@@ -39,7 +39,7 @@ class CreditDailyROI extends Command
         DB::beginTransaction();
 
         try {
-            $users = User::role(['user'])->with('wallet')->get();
+            $users = User::role(['user'])->with('wallet')->active()->get();
 
             foreach ($users as $user) {
                 $totalBalance = $user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sum('amount');

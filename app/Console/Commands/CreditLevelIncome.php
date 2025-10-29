@@ -31,7 +31,7 @@ class CreditLevelIncome extends Command
         DB::beginTransaction();
 
         try {
-            $users = User::with('wallet', 'referrer')->get();
+            $users = User::with('wallet', 'referrer')->active()->get();
 
             foreach ($users as $user) {
                 // Skip users without ROI today

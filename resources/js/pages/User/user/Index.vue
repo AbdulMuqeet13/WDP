@@ -52,7 +52,7 @@ const search = (input: string) => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Our Team" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="container mx-auto p-10">

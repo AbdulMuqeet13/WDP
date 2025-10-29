@@ -60,7 +60,7 @@ const columns = [
                                 type="text"
                                 v-model="form.wallet_address"
                             />
-                            <small v-if="errors.amount" class="text-red-500">{{errors.amount}}</small>
+                            <small v-if="errors.wallet_address" class="text-red-500">{{errors.wallet_address}}</small>
                         </div>
 
                         <Button @click="submit">Request Withdrawal</Button>

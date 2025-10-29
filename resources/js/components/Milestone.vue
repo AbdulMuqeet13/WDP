@@ -20,7 +20,7 @@ defineProps({
             <div class="flex flex-col items-end gap-3">
                 <p class="text-sm text-muted-foreground">{{ milestone.progress }}%</p>
                 <Progress
-                    :value="milestone.progress"
+                    v-model="milestone.progress"
                     :max="100"
                     class="h-3 rounded-full"
                 />

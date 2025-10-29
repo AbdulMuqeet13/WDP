@@ -116,6 +116,9 @@ class User extends Authenticatable implements Wallet
 
     public function checkAndPromoteToCTO(): void
     {
+        if ($this->balance < 50) {
+            return;
+        }
         $qualifiedReferrals = $this->directReferrals->filter(function ($ref) {
             $refDeposit = $ref->transactions()
                 ->whereJsonContains('meta->type', 'User Deposit')
@@ -125,7 +128,9 @@ class User extends Authenticatable implements Wallet
         })->count();
 
         if ($qualifiedReferrals >= 20 && !$this->is_cto) {
-            $this->update(['is_cto' => true]);
+            $this->update(['is_cto' => 1]);
+        } else if ($qualifiedReferrals < 20 && $this->is_cto) {
+            $this->update(['is_cto' => 0]);
         }
     }
 

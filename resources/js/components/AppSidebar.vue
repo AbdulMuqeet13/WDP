@@ -10,7 +10,7 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard, home, reports } from '@/routes';
-import { index } from '@/routes/admin/users';
+import { index } from '@/routes/user/users';
 import { index as adminUsers} from '@/routes/admin/users';
 import { index as userTransactions } from '@/routes/admin/user-transactions';
 import { index as transactions } from '@/routes/admin/transactions';
@@ -38,7 +38,7 @@ const mainNavItems: NavItem[] = [
         roles: ['admin', 'user'],
     },
     {
-        title: 'Users',
+        title: 'Our Team',
         href: index(),
         icon: LayoutGrid,
         roles: ['user'],
@@ -62,13 +62,13 @@ const mainNavItems: NavItem[] = [
         roles: ['admin'],
     },
     {
-        title: 'Wallets',
+        title: 'My Earnings',
         href: wallets(),
         icon: Wallet,
         roles: ['user'],
     },
     {
-        title: 'Deposits',
+        title: 'Topup',
         href: deposits(),
         icon: BookDown,
         roles: ['user'],

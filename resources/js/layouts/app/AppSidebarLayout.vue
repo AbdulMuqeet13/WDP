@@ -25,7 +25,6 @@ const flash = computed(() => page.props?.flash)
 
 watch(() => flash.value,
     () =>{
-        console.log(flash.value);
         if (flash.value?.success) {
             toast.success('Success', {
                 description: flash.value.success,

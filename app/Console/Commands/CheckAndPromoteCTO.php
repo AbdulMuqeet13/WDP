@@ -26,7 +26,7 @@ class CheckAndPromoteCTO extends Command
      */
     public function handle()
     {
-        $users = User::role(['user'])->where('is_cto', 0)->get();
+        $users = User::role(['user'])->get();
         foreach ($users as $user) {
             $user->checkAndPromoteToCTO();
         }

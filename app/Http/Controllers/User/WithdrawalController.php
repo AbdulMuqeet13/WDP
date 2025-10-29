@@ -25,7 +25,7 @@ class WithdrawalController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|gt:0',
+            'amount' => 'required|numeric|min:25',
             'wallet_address' => 'required|string'
         ]);
 
