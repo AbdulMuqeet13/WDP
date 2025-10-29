@@ -26,12 +26,12 @@ class CreditLevelIncome extends Command
             return CommandAlias::SUCCESS;
         }
 
-        $levelRates = config('referrals.level_income');
+        $levelRates = config('referrals');
 
         DB::beginTransaction();
 
         try {
-            $users = User::with('wallet', 'referredBy')->get();
+            $users = User::with('wallet', 'referrer')->get();
 
             foreach ($users as $user) {
                 // Skip users without ROI today
@@ -51,7 +51,7 @@ class CreditLevelIncome extends Command
 
         } catch (\Throwable $e) {
             DB::rollBack();
-            $this->error("❌ Error: " . $e->getMessage());
+            $this->error("❌ Error: " . $e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
         }
 
         return CommandAlias::SUCCESS;
@@ -59,7 +59,7 @@ class CreditLevelIncome extends Command
 
     protected function distributeLevelIncome(User $user, float $roiAmount, array $levelRates, Carbon $today): void
     {
-        $referrer = $user->referredBy;
+        $referrer = $user->referrer;
         $level = 1;
 
         while ($referrer && $level <= 15) {
@@ -77,7 +77,7 @@ class CreditLevelIncome extends Command
                 $this->info("Level {$level} income of {$bonus} credited to {$referrer->name}");
             }
 
-            $referrer = $referrer->referredBy;
+            $referrer = $referrer->referrer;
             $level++;
         }
     }

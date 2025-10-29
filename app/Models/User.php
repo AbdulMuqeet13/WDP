@@ -67,6 +67,13 @@ class User extends Authenticatable implements Wallet
         });
     }
 
+    public function scopeActive($query)
+    {
+        return $query->whereHas('wallet', function ($q) {
+            $q->where('balance', '>=', 50);
+        });
+    }
+
     public function referrer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'referred_by');

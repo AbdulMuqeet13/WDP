@@ -15,7 +15,7 @@ class DistributeCTORoyalty extends Command
     public function handle()
     {
         $yesterdayIncome = Transaction::query()
-            ->whereJsonContains('meta.type', 'User Deposit')
+            ->whereJsonContains('meta->type', 'User Deposit')
             ->whereDate('created_at', Carbon::yesterday())
             ->sum('amount');
 

@@ -35,6 +35,9 @@ class TransactionController extends Controller
                 $user->deposit($transaction->amount, [
                     'type' => 'User Deposit',
                 ]);
+                $user->deposit($transaction->amount * 0.03, [
+                    'type' => 'Sponsor Income',
+                ]);
             } elseif ($transaction->type === 'withdraw') {
                 $user->withdraw($transaction->amount, [
                     'type' => 'User Withdraw',
