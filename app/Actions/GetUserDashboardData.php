@@ -65,13 +65,13 @@ class GetUserDashboardData
             'role' => 'user',
             'stats' => [
                 'network_members' => $networkMembers,
-                'network_income' => number_format($networkIncome, 2),
-                'total_deposits' => number_format($totalDeposits, 2),
-                'total_withdrawals' => number_format($totalWithdrawals, 2),
-                'daily_ROI' => number_format($dailyROI, 2),
-                'sponsor_income' => number_format($sponsorIncome, 2),
-                'CTO_income' => number_format($ctoIncome, 2),
-                'wallet_balance' => number_format($walletBalance, 2),
+                'network_income' => '$' . number_format($networkIncome, 2),
+                'total_deposits' => '$' . number_format($totalDeposits, 2),
+                'total_withdrawals' => '$' . number_format($totalWithdrawals, 2),
+                'daily_ROI' => '$' . number_format($dailyROI, 2),
+                'sponsor_income' => '$' . number_format($sponsorIncome, 2),
+                'CTO_income' => '$' . number_format($ctoIncome, 2),
+                'wallet_balance' => '$' . number_format($walletBalance, 2),
             ],
             'milestones' => [
                 [

@@ -35,10 +35,10 @@ defineProps({
         >
             <CardHeader>
                 <CardDescription class="capitalize">{{
-                    key.replace('_', ' ')
+                    key.replaceAll('_', ' ')
                 }}</CardDescription>
                 <CardTitle class="text-2xl font-bold">
-                    {{ typeof value === 'number' ? value : `$${value}` }}
+                    {{ value }}
                 </CardTitle>
             </CardHeader>
         </Card>
