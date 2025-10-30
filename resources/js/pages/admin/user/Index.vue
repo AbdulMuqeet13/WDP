@@ -5,6 +5,9 @@ import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import { show } from '@/routes/admin/users';
+import { update } from '@/routes/admin/transactions';
+import * as url from 'node:url';
 
 defineProps({
     users: [],
@@ -25,6 +28,9 @@ const columns = [
     { accessorKey: 'network_members', header: 'Network Members', dataType: 'text' },
     { accessorKey: 'joining_date', header: 'Joining Date' },
 ];
+const edit = (id: number) => {
+    router.visit(show(id))
+};
 
 const searchInput = ref('');
 const pageNumber = ref(1);
@@ -48,6 +54,14 @@ const search = (input: string) => {
     pageNumber.value = 1;
     reloadData();
 }
+const tableActions = [
+    {
+        title: "Edit",
+        action: edit,
+        key: 'edit',
+    },
+
+];
 
 </script>
 
@@ -64,15 +78,8 @@ const search = (input: string) => {
                 @pageChange="changePage"
                 @search="search"
                 :enableSearch="true"
+                :actions="tableActions"
             />
-            <!--            <div v-if="users.length">-->
-            <!--                <ReferralNode-->
-            <!--                    v-for="user in users"-->
-            <!--                    :key="user.id"-->
-            <!--                    :user="user"-->
-            <!--                />-->
-            <!--            </div>-->
-            <!--            <div v-else class="text-gray-500">No users found.</div>-->
         </div>
     </AppLayout>
 </template>
