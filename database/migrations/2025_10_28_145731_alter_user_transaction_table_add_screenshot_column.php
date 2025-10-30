@@ -23,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('user_transactions', function (Blueprint $table) {
-            //
+            $table->dropColumn('screenshot');
+            $table->dropColumn('wallet_address');
         });
     }
 };

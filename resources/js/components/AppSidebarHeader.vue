@@ -2,6 +2,9 @@
 import Breadcrumbs from '@/components/Breadcrumbs.vue';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItemType } from '@/types';
+import { router, usePage } from '@inertiajs/vue3';
+import { Button } from '@/components/ui/button';
+import { destroy } from '@/routes/admin/impersonate';
 
 withDefaults(
     defineProps<{
@@ -11,6 +14,8 @@ withDefaults(
         breadcrumbs: () => [],
     },
 );
+
+const {props} = usePage();
 </script>
 
 <template>
@@ -23,5 +28,6 @@ withDefaults(
                 <Breadcrumbs :breadcrumbs="breadcrumbs" />
             </template>
         </div>
+        <Button variant="outline" v-if="props.is_impersonation" @click="router.visit(destroy(props.auth.user.id))">Stop Impersonation</Button>
     </header>
 </template>

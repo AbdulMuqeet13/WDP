@@ -6,8 +6,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { show } from '@/routes/admin/users';
-import { update } from '@/routes/admin/transactions';
-import * as url from 'node:url';
+import { show as impersonate } from '@/routes/admin/impersonate';
 
 defineProps({
     users: [],
@@ -54,13 +53,22 @@ const search = (input: string) => {
     pageNumber.value = 1;
     reloadData();
 }
+
+const impersonateUser = (id: number) => {
+    router.get(impersonate(id))
+}
+
 const tableActions = [
+    {
+        title: "Impersonate",
+        action: impersonateUser,
+        key: 'impersonate',
+    },
     {
         title: "Edit",
         action: edit,
         key: 'edit',
     },
-
 ];
 
 </script>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ImpersonationController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\UserTransactionsController;
 use App\Http\Controllers\DashboardController;
@@ -40,6 +41,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('users', AdminUserController::class)->only(['index', 'show', 'update']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'update']);
     Route::resource('user-transactions', UserTransactionsController::class)->only(['index']);
+    Route::resource('impersonate', ImpersonationController::class)->withoutMiddleware('role:admin')->only(['show', 'destroy']);
 });
 
 

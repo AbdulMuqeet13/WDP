@@ -62,10 +62,15 @@ class User extends Authenticatable implements Wallet
     protected static function booted(): void
     {
         static::created(function ($user) {
-            $user->referral_code = 'WDP' . mt_rand(10000, 99999);
+            do {
+                $code = 'WDP' . mt_rand(10000, 99999);
+            } while (self::where('referral_code', $code)->exists());
+
+            $user->referral_code = $code;
             $user->save();
         });
     }
+
 
     public function scopeActive($query)
     {
