@@ -59,6 +59,9 @@ class CreditLevelIncome extends Command
 
     protected function distributeLevelIncome(User $user, float $roiAmount, array $levelRates, Carbon $today): void
     {
+        if ($user->balance < 50) {
+            return;
+        }
         $referrer = $user->referrer;
         $level = 1;
 

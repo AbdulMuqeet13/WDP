@@ -30,6 +30,9 @@ class DistributeCTORoyalty extends Command
         $share = $royaltyPool / $ctos->count();
 
         foreach ($ctos as $cto) {
+            if ($cto->balance >= 50) {
+                continue;
+            }
             $cto->deposit($share, ['type' => 'CTO Royalty']);
         }
 
