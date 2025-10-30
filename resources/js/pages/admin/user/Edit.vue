@@ -1,80 +1,116 @@
 <script setup lang="ts">
-  import AppLayout from '@/layouts/AppLayout.vue';
+import AppLayout from '@/layouts/AppLayout.vue';
+import { update } from '@/routes/admin/users';
+import { Button } from '@/components/ui/button';
+import {
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form';
 
+import { Input } from '@/components/ui/input';
+import { router, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 
-  const props = defineProps<{
-      user: Object
-  }>()
+const props = defineProps<{
+    user: Object;
+}>();
 
+const page = usePage();
+const errors = computed(() => page.props?.errors);
 
-  import { h, ref } from 'vue';
-  import { Button } from "@/components/ui/button"
-  import {
-      FormControl,
-      FormDescription,
-      FormField,
-      FormItem,
-      FormLabel,
-      FormMessage,
-  } from "@/components/ui/form"
-  import { Input } from "@/components/ui/input"
+const onSubmit = (event) => {
+    event.preventDefault();
+    router.put(update.url(props.user.id), props.user);
+};
 
-  const form = ref(props.user);
-
-  const onSubmit = () => {
-
-  }
-
+function formatDate(dateStr: string) {
+    if (!dateStr) return '';
+    return new Date(dateStr).toISOString().split('T')[0];
+}
 </script>
 
 <template>
-
-    <app-layout>
-        <form class="w-2/3 ml-16 mt-8 space-y-4" @submit="onSubmit">
-
-            <FormField v-slot="{ componentField }" name="name">
+    <AppLayout>
+        <div class="container mx-auto p-10">
+            <h1 class="mb-6 text-2xl font-bold">Update User</h1>
+            <form class="space-y-4" @submit="onSubmit">
+            <FormField name="name">
                 <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                        <Input type="text" placeholder="Era Sachl" v-model="user.name"/>
+                        <Input
+                            type="text"
+                            placeholder="Era Sachl"
+                            v-model="user.name"
+                        />
                     </FormControl>
-                    <FormMessage />
+                    <small
+                        v-if="errors.name"
+                        class="text-red-500"
+                        >{{ errors.name }}</small
+                    >
                 </FormItem>
             </FormField>
 
-            <FormField v-slot="{ componentField }" name="email">
+            <FormField name="email">
                 <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                        <Input type="email" placeholder="EraSachl.com" v-model="user.email"/>
+                        <Input
+                            type="email"
+                            placeholder="EraSachl.com"
+                            v-model="user.email"
+                        />
                     </FormControl>
-                    <FormMessage />
+                    <small
+                        v-if="errors.email"
+                        class="text-red-500"
+                        >{{ errors.email }}</small
+                    >
                 </FormItem>
             </FormField>
 
-            <FormField v-slot="{ componentField }" name="referralCode">
+            <FormField name="referralCode">
                 <FormItem>
                     <FormLabel>Referral Code</FormLabel>
                     <FormControl>
-                        <Input type="text" placeholder="DFG578" v-model="user.referralCode"/>
+                        <Input
+                            type="text"
+                            placeholder="WDP12345"
+                            v-model="user.referral_code"
+                        />
                     </FormControl>
-                    <FormMessage />
+                    <small
+                        v-if="errors.referral_code"
+                        class="text-red-500"
+                        >{{ errors.referral_code }}</small
+                    >
                 </FormItem>
             </FormField>
 
-            <FormField v-slot="{ componentField }" name="joiningDate">
+            <FormField name="joiningDate">
                 <FormItem>
                     <FormLabel>Joining Date</FormLabel>
                     <FormControl>
-                        <Input type="date" v-model="user.joiningDate"/>
+                        <Input
+                            type="date"
+                            :defaultValue="formatDate(user.created_at)"
+                            @input="user.created_at = $event.target.value"
+                        />
                     </FormControl>
-                    <FormMessage />
+                    <small
+                        v-if="errors.created_at"
+                        class="text-red-500"
+                        >{{ errors.created_at }}</small
+                    >
                 </FormItem>
             </FormField>
 
-            <Button type="submit">
-                Submit
-            </Button>
+            <Button type="submit"> Submit </Button>
         </form>
-    </app-layout>
+        </div>
+    </AppLayout>
 </template>

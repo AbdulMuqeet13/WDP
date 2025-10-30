@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,8 +32,10 @@ class UserController extends Controller
         return Inertia::render('admin/user/Edit', compact('user'));
     }
 
-    public function update(User $user)
+    public function update(User $user, UpdateUserRequest $request)
     {
-//        return Inertia::render('admin/user/Edit', compact('user'));
+        $data = $request->validated();
+        $user->update($data);
+        return redirect()->back()->with('success', 'User updated successfully');
     }
 }
