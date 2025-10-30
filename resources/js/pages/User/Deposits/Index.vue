@@ -61,7 +61,7 @@ function submit() {
     data.append('amount', form.value.amount);
     if (form.value.screenshot) data.append('screenshot', form.value.screenshot);
 
-    router.post(store(data));
+    router.post(store.url(), data);
 }
 </script>
 

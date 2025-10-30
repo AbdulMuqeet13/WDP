@@ -26,20 +26,13 @@ class UserController extends Controller
         return Inertia::render('admin/user/Index', compact('users'));
     }
 
-//    private function getReferralTree($user, $depth = 15)
-//    {
-//        if ($depth === 0) {
-//            return [];
-//        }
-//
-//        $referrals = User::where('referred_by', $user->id)
-//            ->select('id', 'name', 'email', 'referred_by')
-//            ->get();
-//
-//        foreach ($referrals as $referral) {
-//            $referral->referral_tree = $this->getReferralTree($referral, $depth - 1);
-//        }
-//
-//        return $referrals;
-//    }
+    public function show(User $user)
+    {
+        return Inertia::render('admin/user/Edit', compact('user'));
+    }
+
+    public function update(User $user)
+    {
+//        return Inertia::render('admin/user/Edit', compact('user'));
+    }
 }

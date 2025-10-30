@@ -37,7 +37,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['aut
 Route::get('reports', [ReportController::class, 'index'])->middleware(['auth'])->name('reports');
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('users', AdminUserController::class)->only(['index']);
+    Route::resource('users', AdminUserController::class)->only(['index', 'show', 'update']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'update']);
     Route::resource('user-transactions', UserTransactionsController::class)->only(['index']);
 });
