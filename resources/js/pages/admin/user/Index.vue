@@ -20,6 +20,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const columns = [
     { accessorKey: 'name', header: 'Name', dataType: 'text' },
     { accessorKey: 'email', header: 'Email', dataType: 'text' },
+    { accessorKey: 'wallet_address', header: 'Wallet Address', dataType: 'text' },
     { accessorKey: 'referral_code', header: 'Referral Code', dataType: 'text' },
     { accessorKey: 'wallet_balance', header: 'Wallet Balance', dataType: 'text' },
     { accessorKey: 'total_investment', header: 'Total Investment', dataType: 'text' },

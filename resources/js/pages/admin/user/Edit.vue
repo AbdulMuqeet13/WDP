@@ -60,7 +60,7 @@ function formatDate(dateStr: string) {
                     <FormControl>
                         <Input
                             type="email"
-                            placeholder="EraSachl.com"
+                            placeholder="email@wdigipay.com"
                             v-model="user.email"
                         />
                     </FormControl>
@@ -68,6 +68,24 @@ function formatDate(dateStr: string) {
                         v-if="errors.email"
                         class="text-red-500"
                         >{{ errors.email }}</small
+                    >
+                </FormItem>
+            </FormField>
+
+            <FormField name="email">
+                <FormItem>
+                    <FormLabel>Wallet Address</FormLabel>
+                    <FormControl>
+                        <Input
+                            type="text"
+                            placeholder="BC20 wallet address"
+                            v-model="user.wallet_address"
+                        />
+                    </FormControl>
+                    <small
+                        v-if="errors.wallet_address"
+                        class="text-red-500"
+                        >{{ errors.wallet_address }}</small
                     >
                 </FormItem>
             </FormField>
