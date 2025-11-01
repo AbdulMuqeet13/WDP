@@ -31,6 +31,7 @@ class User extends Authenticatable implements Wallet
         'referral_code',
         'referred_by',
         'is_cto',
+        'wallet_address',
     ];
 
     /**

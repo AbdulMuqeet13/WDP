@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -30,16 +31,32 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureViews();
         $this->configureRateLimiting();
         Fortify::authenticateUsing(function (Request $request) {
-            $login = $request->input('email'); // The input field name stays "email" for compatibility
+            $login = $request->input('email'); // keep input name "email" for compatibility
             $password = $request->input('password');
+            // Try to find user by email OR referral code first
+            $user = User::query()->where('email', $login)
+                ->orWhere('referral_code', $login)
+                ->first();
 
-            // Determine if user is logging in by email or referral code
-            $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'referral_code';
+            if (! $user) {
+                return null;
+            }
 
-            // Attempt to get user by chosen field
-            $user = User::query()->where($field, $login)->first();
+            // Determine field based on role
+            if ($user->hasRole('admin')) {
+                // Admins must log in with email only
+                if (strtolower($user->email) !== strtolower($login)) {
+                    return null; // trying to login via referral code as admin
+                }
+            } elseif ($user->hasRole('user')) {
+                // Regular users must log in with referral code only
+                if (strtolower($user->referral_code) !== strtolower($login)) {
+                    return null; // trying to login via email as user
+                }
+            }
 
-            if ($user && \Hash::check($password, $user->password)) {
+            // Verify password
+            if (Hash::check($password, $user->password)) {
                 return $user;
             }
 

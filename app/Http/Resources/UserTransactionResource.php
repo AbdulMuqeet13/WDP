@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class UserTransactionResource extends JsonResource
 {
@@ -22,6 +23,8 @@ class UserTransactionResource extends JsonResource
             'type' => ucfirst($this->type),
             'status' => ucfirst($this->status),
             'description' => $this->description,
+            'screenshot' => $this->screenshot,
+            'screenshot_url' => $this->when($this->screenshot, Storage::disk('public')->url($this->screenshot)),
             'created_at' => Carbon::parse($this->created_at)->format('d M, Y h:i A'),
             'user' => new UserResource($this->whenLoaded('user')),
         ];

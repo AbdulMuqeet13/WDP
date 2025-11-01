@@ -26,11 +26,12 @@ class WithdrawalController extends Controller
     {
         $request->validate([
             'amount' => 'required|numeric|min:25',
-            'wallet_address' => 'required|string'
         ]);
 
         $user = Auth::user();
-
+        if (!$user->wallet_address) {
+            return back()->with('error', 'Set your wallet address first in profile.');
+        }
         // Ensure wallet has enough funds
         if ($user->balance < $request->amount) {
             return back()->with('error', 'Insufficient balance for withdrawal.');
@@ -52,7 +53,7 @@ class WithdrawalController extends Controller
             'amount' => $request->amount,
             'status' => 'pending',
             'description' => 'Withdrawal request awaiting admin approval',
-            'wallet_address' => $request->wallet_address,
+            'wallet_address' => $user->wallet_address,
         ]);
 
         return back()->with('success', 'Withdrawal request sent for admin approval.');

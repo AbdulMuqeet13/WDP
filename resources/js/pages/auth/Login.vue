@@ -40,7 +40,7 @@ defineProps<{
         >
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="email">User Code</Label>
                     <Input
                         id="email"
                         type="text"

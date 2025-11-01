@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { type BreadcrumbItem } from '@/types';
+import { computed } from 'vue';
 
 interface Props {
     mustVerifyEmail: boolean;
@@ -29,7 +30,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
 ];
 
 const page = usePage();
-const user = page.props.auth.user;
+const user = computed(() => page.props.auth.user);
 </script>
 
 <template>
@@ -60,6 +61,21 @@ const user = page.props.auth.user;
                             placeholder="Full name"
                         />
                         <InputError class="mt-2" :message="errors.name" />
+                    </div>
+
+                    <div class="grid gap-2">
+                        <Label for="name">Wallet Address</Label>
+                        <Input
+                            id="wallet_address"
+                            :disabled="user.wallet_address"
+                            class="mt-1 block w-full"
+                            name="wallet_address"
+                            :default-value="user.wallet_address"
+                            required
+                            autocomplete="wallet_address"
+                            placeholder="BC20 wallet address"
+                        />
+                        <InputError class="mt-2" :message="errors.wallet_address" />
                     </div>
 
                     <div class="grid gap-2">
