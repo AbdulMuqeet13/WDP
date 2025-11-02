@@ -33,7 +33,17 @@ class WithdrawalController extends Controller
             return back()->with('error', 'Set your wallet address first in profile.');
         }
         // Ensure wallet has enough funds
-        if ($user->balance < $request->amount) {
+        $sponsorIncomeTypes = ['Sponsor Income', 'ROI Credit', 'Level Income', 'CTO Royalty'];
+        $userIncome = $user->transactions()
+            ->where(function ($query) use ($sponsorIncomeTypes) {
+                foreach ($sponsorIncomeTypes as $type) {
+                    $query->orWhereJsonContains('meta->type', $type);
+                }
+            })
+            ->sum('amount');
+        $userWithdrawals = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sum('amount');
+        $userBalance = $userIncome - $userWithdrawals;
+        if ($userBalance < $request->amount) {
             return back()->with('error', 'Insufficient balance for withdrawal.');
         }
 
