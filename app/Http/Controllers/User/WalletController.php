@@ -21,7 +21,7 @@ class WalletController extends Controller
             ->get();
 
         return Inertia::render('User/Wallet/Index', [
-            'balance' => $user->balance,
+            'balance' => $user->balanceFloat,
             'transactions' => TransactionResource::collection($walletTransactions)->resolve(),
         ]);
     }

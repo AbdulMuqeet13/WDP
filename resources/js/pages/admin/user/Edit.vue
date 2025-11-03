@@ -78,7 +78,7 @@ function formatDate(dateStr: string) {
                     <FormControl>
                         <Input
                             type="text"
-                            placeholder="BC20 wallet address"
+                            placeholder="CEP20 wallet address"
                             v-model="user.wallet_address"
                         />
                     </FormControl>

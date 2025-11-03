@@ -56,7 +56,7 @@ class CreditDailyROI extends Command
                     }
                     $roi = $balance * $roiRate;
 
-                    $user->deposit($roi, [
+                    $user->depositFloat($roi, [
                         'type' => 'ROI Credit',
                         'description' => "Daily ROI credited on {$today->toDateString()}",
                     ]);

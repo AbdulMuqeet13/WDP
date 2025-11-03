@@ -4,7 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Bavix\Wallet\Interfaces\Wallet;
+use Bavix\Wallet\Interfaces\WalletFloat;
 use Bavix\Wallet\Traits\HasWallet;
+use Bavix\Wallet\Traits\HasWalletFloat;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,10 +16,10 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements Wallet
+class User extends Authenticatable implements WalletFloat
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasWallet, HasRoles;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasWalletFloat, HasRoles;
 
     /**
      * The attributes that are mass assignable.

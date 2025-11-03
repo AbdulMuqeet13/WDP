@@ -59,7 +59,7 @@ class CreditLevelIncome extends Command
 
     protected function distributeLevelIncome(User $user, float $roiAmount, array $levelRates, Carbon $today): void
     {
-        if ($user->balance < 50) {
+        if ($user->balanceFloat < 50) {
             return;
         }
         $referrer = $user->referrer;
@@ -71,7 +71,7 @@ class CreditLevelIncome extends Command
             if ($rate > 0 && $referrer->wallet) {
                 $bonus = $roiAmount * $rate;
 
-                $referrer->deposit($bonus, [
+                $referrer->depositFloat($bonus, [
                     'type' => 'Level Income',
                     'referrer_id' => $referrer->id,
                     'description' => "Level {$level} income from {$user->name}'s ROI on {$today->toDateString()}",

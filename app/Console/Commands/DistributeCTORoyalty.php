@@ -33,7 +33,7 @@ class DistributeCTORoyalty extends Command
             if ($cto->balance >= 50) {
                 continue;
             }
-            $cto->deposit($share, ['type' => 'CTO Royalty']);
+            $cto->depositFloat($share, ['type' => 'CTO Royalty']);
         }
 
         $this->info("Distributed \${$royaltyPool} among {$ctos->count()} CTOs.");
