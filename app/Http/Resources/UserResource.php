@@ -15,6 +15,7 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+//        dd($this->balance);
         return [
             "id" => $this->id,
             "name" => $this->name,
@@ -23,8 +24,8 @@ class UserResource extends JsonResource
             "referred_by" => $this->referred_by,
             "wallet_balance" => $this->balanceFloat,
             "wallet_address" => $this->wallet_address,
-            "total_investment" => $this->transactions()->whereJsonContains('meta->type', 'User Deposit')->sum('amount'),
-            "total_referral_income" => $this->transactions()->whereJsonContains('meta->type', 'Level Income')->sum('amount'),
+            "total_investment" => $this->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount'),
+            "total_referral_income" => $this->transactions()->whereJsonContains('meta->type', 'Level Income')->sumAmountFloat('amount'),
             "referrer" => $this->whenLoaded('referrer'),
             "directReferrals" => $this->whenLoaded('directReferrals'),
             "direct_referrals_count" => $this->whenCounted('directReferrals'),

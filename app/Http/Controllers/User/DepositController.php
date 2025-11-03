@@ -7,7 +7,7 @@ use App\Http\Requests\User\Transaction\CreateTransactionRequest;
 use App\Http\Resources\UserTransactionResource;
 use App\Models\User;
 use App\Models\UserTransaction;
-use Bavix\Wallet\Models\Transaction;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

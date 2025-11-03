@@ -1,7 +1,7 @@
 <?php
 namespace App\Console\Commands;
 
-use Bavix\Wallet\Models\Transaction;
+use App\Models\Transaction;
 use Illuminate\Console\Command;
 use App\Models\User;
 use Carbon\Carbon;

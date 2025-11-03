@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\TransactionResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Bavix\Wallet\Models\Transaction;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

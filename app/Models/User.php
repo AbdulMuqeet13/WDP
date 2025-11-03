@@ -16,10 +16,10 @@ use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements WalletFloat
+class User extends Authenticatable implements WalletFloat, Wallet
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasWalletFloat, HasRoles;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, HasWalletFloat, HasWallet, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -124,7 +124,7 @@ class User extends Authenticatable implements WalletFloat
 
     public function checkAndPromoteToCTO(): void
     {
-        if ($this->balanceFloat < 50) {
+        if ($this->balance < 50) {
             return;
         }
         $qualifiedReferrals = $this->directReferrals->filter(function ($ref) {

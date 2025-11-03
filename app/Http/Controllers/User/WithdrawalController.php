@@ -41,7 +41,7 @@ class WithdrawalController extends Controller
                 }
             })
             ->sum('amount');
-        $userWithdrawals = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sum('amount');
+        $userWithdrawals = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sumAmountFloat('amount');
         $userBalance = $userIncome - $userWithdrawals;
         if ($userBalance < $request->amount) {
             return back()->with('error', 'Insufficient balance for withdrawal.');

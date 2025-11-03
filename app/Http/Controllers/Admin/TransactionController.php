@@ -39,7 +39,7 @@ class TransactionController extends Controller
                     'type' => 'Sponsor Income',
                 ]);
             } elseif ($transaction->type === 'withdraw') {
-                $user->withdraw($transaction->amount, [
+                $user->withdrawFloat($transaction->amount, [
                     'type' => 'User Withdraw',
                 ]);
             }

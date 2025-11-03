@@ -3,16 +3,16 @@
 namespace App\Actions;
 
 use App\Http\Resources\UserResource;
-use Bavix\Wallet\Models\Transaction;
+use App\Models\Transaction;
 
 class GetUserDashboardData
 {
     public static function handle($user, $referralUrl): array
     {
         $networkMembers = $user->getNetworkMembersCount();
-        $networkIncome = Transaction::query()->whereJsonContains('meta->referrer_id', $user->referrer_id)->sum('amount') ?? 0;
-        $totalDeposits = $user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sum('amount');
-        $totalWithdrawals = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sum('amount');
+        $networkIncome = Transaction::query()->whereJsonContains('meta->referrer_id', $user->referrer_id)->sumAmountFloat('amount') ?? 0;
+        $totalDeposits = $user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount');
+        $totalWithdrawals = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sumAmountFloat('amount');
         $recentReferrals = $user->directReferrals()
             ->latest()
             ->take(5)
@@ -67,7 +67,7 @@ class GetUserDashboardData
                 'network_members' => $networkMembers,
                 'network_income' => '$' . number_format($networkIncome, 2),
                 'total_deposits' => '$' . number_format($totalDeposits, 2),
-                'total_withdrawals' => '$' . number_format($totalWithdrawals, 2),
+                'total_withdrawals' => '$' . number_format(abs($totalWithdrawals), 2),
                 'daily_ROI' => '$' . number_format($dailyROI, 2),
                 'sponsor_income' => '$' . number_format($sponsorIncome, 2),
                 'CTO_income' => '$' . number_format($ctoIncome, 2),

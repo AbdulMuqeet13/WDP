@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bavix\Wallet\Models\Transaction;
+use App\Models\Transaction;
 use Bavix\Wallet\Models\Transfer;
 use Bavix\Wallet\Models\Wallet;
 use Illuminate\Database\Migrations\Migration;

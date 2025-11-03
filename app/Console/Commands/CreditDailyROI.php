@@ -42,8 +42,8 @@ class CreditDailyROI extends Command
             $users = User::role(['user'])->with('wallet')->active()->get();
 
             foreach ($users as $user) {
-                $totalBalance = $user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sum('amount');
-                $totalWithdraw = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sum('amount');
+                $totalBalance = $user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount');
+                $totalWithdraw = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sumAmountFloat('amount');
                 $balance = $totalBalance - $totalWithdraw;
                 // Only credit if user has positive balance
                 if ($balance >= 50) {
