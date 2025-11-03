@@ -23,7 +23,7 @@ class GetAdminDashboardData
         $todayROI = Transaction::query()
             ->whereJsonContains('meta->type', 'ROI Credit')
             ->whereToday('created_at')
-            ->sum('amount');
+            ->sumAmountFloat('amount');
         $sponsorIncomeTypes = ['Sponsor Income', 'ROI Credit', 'Level Income', 'CTO Royalty'];
         $totalSponsorIncome = Transaction::query()
             ->where(function ($query) use ($sponsorIncomeTypes) {
@@ -31,7 +31,7 @@ class GetAdminDashboardData
                     $query->orWhereJsonContains('meta->type', $type);
                 }
             })
-            ->sum('amount');
+            ->sumAmountFloat('amount');
         $totalCtoIncome = Transaction::query()->whereJsonContains('meta->type', 'CTO Royalty')->sumAmountFloat('amount');
 
         $recentUsers = User::query()->latest()->take(5)->get(['name', 'email', 'created_at']);

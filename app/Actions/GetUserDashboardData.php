@@ -21,7 +21,7 @@ class GetUserDashboardData
         // ✅ Self investment totals
         $selfInvestment = $user->transactions()
             ->whereJsonContains('meta->type', 'User Deposit')
-            ->sum('amount');
+            ->sumAmountFloat('amount');
 
         // ✅ Calculate progress for rewards
         $thailandTarget = 2000;
@@ -36,7 +36,7 @@ class GetUserDashboardData
         $qualifiedReferrals = $user->directReferrals->filter(function ($ref) use ($ctoMinInvestment) {
             $refDeposit = $ref->transactions()
                 ->whereJsonContains('meta->type', 'User Deposit')
-                ->sum('amount');
+                ->sumAmountFloat('amount');
 
             return $refDeposit >= $ctoMinInvestment;
         })->count();
@@ -46,18 +46,26 @@ class GetUserDashboardData
         $dailyROI = $user->transactions()
             ->whereJsonContains('meta->type', 'ROI Credit')
             ->whereToday('created_at')
-            ->sum('amount');
+            ->sumAmountFloat('amount');
 
         $sponsorIncome = $user->transactions()
             ->whereJsonContains('meta->type', 'Sponsor Income')
-            ->sum('amount');
+            ->sumAmountFloat('amount');
 
         $ctoIncome = $user->transactions()
             ->whereJsonContains('meta->type', 'CTO Royalty')
-            ->sum('amount');
+            ->sumAmountFloat('amount');
 
+        $userIncomeTypes = ['Sponsor Income', 'ROI Credit', 'Level Income', 'CTO Royalty'];
+        $totalUserIncome = $user->transactions()
+            ->where(function ($query) use ($userIncomeTypes) {
+                foreach ($userIncomeTypes as $type) {
+                    $query->orWhereJsonContains('meta->type', $type);
+                }
+            })
+            ->sumAmountFloat('amount');
         // Total wallet balance (optional)
-        $walletBalance = $user->balanceFloat ?? 0;
+        $walletBalance = $totalUserIncome ?? 0;
 
         return [
             'user' => new UserResource($user),

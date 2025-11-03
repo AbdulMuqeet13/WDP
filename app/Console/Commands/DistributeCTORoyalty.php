@@ -17,7 +17,7 @@ class DistributeCTORoyalty extends Command
         $yesterdayIncome = Transaction::query()
             ->whereJsonContains('meta->type', 'User Deposit')
             ->whereDate('created_at', Carbon::yesterday())
-            ->sum('amount');
+            ->sumAmountFloat('amount');
 
         $royaltyPool = $yesterdayIncome * 0.03; // 3%
         $ctos = User::query()->where('is_cto', 1)->get();

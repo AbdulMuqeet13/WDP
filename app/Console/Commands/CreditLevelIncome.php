@@ -38,7 +38,7 @@ class CreditLevelIncome extends Command
                 $roiToday = $user->transactions()
                     ->whereJsonContains('meta->type', 'ROI Credit')
                     ->whereDate('created_at', $today->toDateString())
-                    ->sum('amount');
+                    ->sumAmountFloat('amount');
 
                 if ($roiToday <= 0) continue;
 

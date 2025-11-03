@@ -40,7 +40,7 @@ const columns = [
                 <CardContent class="text-lg">
                     <div class="flex justify-between items-center">
                         <div>
-                            <p class="text-gray-500">Current Balance</p>
+                            <p class="text-gray-500">Wallet Balance</p>
                             <h2 class="text-4xl font-bold text-blue-600">${{ balance }}</h2>
                         </div>
                         <div class="flex gap-3">

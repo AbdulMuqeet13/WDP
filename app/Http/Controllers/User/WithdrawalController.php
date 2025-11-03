@@ -40,7 +40,7 @@ class WithdrawalController extends Controller
                     $query->orWhereJsonContains('meta->type', $type);
                 }
             })
-            ->sum('amount');
+            ->sumAmountFloat('amount');
         $userWithdrawals = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sumAmountFloat('amount');
         $userBalance = $userIncome - $userWithdrawals;
         if ($userBalance < $request->amount) {

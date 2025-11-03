@@ -130,7 +130,7 @@ class User extends Authenticatable implements WalletFloat, Wallet
         $qualifiedReferrals = $this->directReferrals->filter(function ($ref) {
             $refDeposit = $ref->transactions()
                 ->whereJsonContains('meta->type', 'User Deposit')
-                ->sum('amount');
+                ->sumAmountFloat('amount');
 
             return $refDeposit >= 50;
         })->count();

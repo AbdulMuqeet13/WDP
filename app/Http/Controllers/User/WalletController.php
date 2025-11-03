@@ -19,9 +19,17 @@ class WalletController extends Controller
             ->latest()
             ->take(50)
             ->get();
+        $userIncomeTypes = ['Sponsor Income', 'ROI Credit', 'Level Income', 'CTO Royalty'];
+        $totalUserIncome = $user->transactions()
+            ->where(function ($query) use ($userIncomeTypes) {
+                foreach ($userIncomeTypes as $type) {
+                    $query->orWhereJsonContains('meta->type', $type);
+                }
+            })
+            ->sumAmountFloat('amount');
 
         return Inertia::render('User/Wallet/Index', [
-            'balance' => $user->balanceFloat,
+            'balance' => $totalUserIncome,
             'transactions' => TransactionResource::collection($walletTransactions)->resolve(),
         ]);
     }
