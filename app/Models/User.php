@@ -124,7 +124,7 @@ class User extends Authenticatable implements WalletFloat
 
     public function checkAndPromoteToCTO(): void
     {
-        if ($this->balance < 50) {
+        if ($this->balanceFloat < 50) {
             return;
         }
         $qualifiedReferrals = $this->directReferrals->filter(function ($ref) {
