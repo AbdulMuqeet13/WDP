@@ -10,7 +10,7 @@ class GetUserDashboardData
     public static function handle($user, $referralUrl): array
     {
         $networkMembers = $user->getNetworkMembersCount();
-        $networkIncome = Transaction::query()->whereJsonContains('meta->referrer_id', $user->referrer_id)->sumAmountFloat('amount') ?? 0;
+        $networkIncome = Transaction::query()->whereJsonContains('meta->type', 'Level Income')->sumAmountFloat('amount') ?? 0;
         $totalDeposits = $user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount');
         $totalWithdrawals = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sumAmountFloat('amount');
         $recentReferrals = $user->directReferrals()
