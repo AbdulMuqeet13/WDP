@@ -19,7 +19,8 @@ class UserController extends Controller
                 ->where(function ($query) use ($data) {
                     if (isset($data['search'])) {
                         $query->where('name', 'LIKE', '%' . trim($data['search']) . '%')
-                            ->orWhere('email', 'LIKE', '%' . trim($data['search']) . '%');
+                            ->orWhere('email', 'LIKE', '%' . trim($data['search']) . '%')
+                            ->orWhere('referral_code', 'LIKE', '%' . trim($data['search']) . '%');
                     }
                 })
                 ->paginate(10)
