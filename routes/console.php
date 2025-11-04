@@ -11,4 +11,3 @@ Schedule::command('app:check-and-promote-cto')->daily();
 Schedule::command('roi:distribute-cto')->daily();
 Schedule::command('roi:credit')->daily();
 Schedule::command('level:income')->daily();
-Schedule::command('app:test-command')->everyMinute();

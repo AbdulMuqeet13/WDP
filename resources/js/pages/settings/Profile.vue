@@ -73,7 +73,7 @@ const user = computed(() => page.props.auth.user);
                             :default-value="user.wallet_address"
                             required
                             autocomplete="wallet_address"
-                            placeholder="CEP20 wallet address"
+                            placeholder="BEP20 wallet address"
                         />
                         <InputError class="mt-2" :message="errors.wallet_address" />
                     </div>
