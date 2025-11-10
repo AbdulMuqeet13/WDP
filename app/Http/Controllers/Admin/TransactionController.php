@@ -35,9 +35,12 @@ class TransactionController extends Controller
                 $user->depositFloat($transaction->amount, [
                     'type' => 'User Deposit',
                 ]);
-                $user->depositFloat($transaction->amount * 0.03, [
+                if($user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount')>=50){
+                   $user->depositFloat($transaction->amount * 0.03, [
                     'type' => 'Sponsor Income',
                 ]);
+                }
+                
             } elseif ($transaction->type === 'withdraw') {
                 $user->withdrawFloat($transaction->amount, [
                     'type' => 'User Withdraw',
