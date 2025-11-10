@@ -24,6 +24,17 @@ defineProps({
 //     { name: "May", total: 900, predicted: 1000 },
 //     { name: "Jun", total: 1100, predicted: 1200 },
 // ]
+
+const colors = {
+    CTO_income: "#fb923c",        // orange-400
+    daily_ROI: "#f472b6",         // pink-400
+    network_income: "#6366f1",    // indigo-400
+    network_members: "#14b8a6",   // teal-400
+    sponsor_income: "#a7f3d0",    // emerald-200
+    total_deposits: "#fb923c",    // orange-400
+    total_withdrawals: "#f472b6", // pink-400
+    wallet_balance: "#14b8a6"     // teal-400
+}
 </script>
 
 <template>
@@ -31,13 +42,14 @@ defineProps({
         <Card
             v-for="(value, key) in stats"
             :key="key"
-            class="rounded-xl border border-border/60"
+            :class="['rounded-xl border border-border/60']"
+            :style="{ backgroundColor: colors[key] || '#999' }"
         >
             <CardHeader>
-                <CardDescription class="capitalize">{{
+                <CardDescription class="capitalize text-white">{{
                     key.replaceAll('_', ' ')
                 }}</CardDescription>
-                <CardTitle class="text-2xl font-bold">
+                <CardTitle class="text-2xl font-bold text-white">
                     {{ value }}
                 </CardTitle>
             </CardHeader>

@@ -15,6 +15,7 @@ const props = defineProps({
     recent_users: Array,
     recent_referrals: Array,
     milestones: Array,
+    is_active: Boolean,
 })
 
 const copied = ref(false)
@@ -43,8 +44,8 @@ const columns = [
             <div class="flex justify-between items-center">
                 <h1 class="text-xl font-bold flex items-end gap-3">
                     <span>Welcome, {{ user.data.name }}</span>
-                    <Badge v-if="role === 'user'" :variant="stats.wallet_balance >= 50 ? '' : 'destructive'">
-                        {{stats.wallet_balance >= 50 ? 'Active' : 'Inactive'}}
+                    <Badge v-if="role === 'user'" :variant="is_active ? '' : 'destructive'">
+                        {{is_active ? 'Active' : 'Inactive'}}
                     </Badge>
                 </h1>
                 <div v-if="role === 'user'" class="flex items-center gap-4">
