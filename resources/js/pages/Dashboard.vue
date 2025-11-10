@@ -15,7 +15,6 @@ const props = defineProps({
     recent_users: Array,
     recent_referrals: Array,
     milestones: Array,
-    is_active: Boolean,
 })
 
 const copied = ref(false)
@@ -43,13 +42,16 @@ const columns = [
         <div class="flex flex-col gap-6 p-6">
             <div class="flex justify-between items-center">
                 <h1 class="text-xl font-bold flex items-end gap-3">
-                    <span>Welcome, {{ user.data.name }}</span>
-                    <Badge v-if="role === 'user'" :variant="is_active ? '' : 'destructive'">
-                        {{is_active ? 'Active' : 'Inactive'}}
+                    <span>Welcome, <span class="text-indigo-600 dark:text-indigo-400">{{ user.data.name }}</span></span>
+                    <Badge v-if="role === 'user'" :variant="user.data.is_active ? '' : 'destructive'">
+                        {{user.data.is_active ? 'Active' : 'Inactive'}}
                     </Badge>
                 </h1>
                 <div v-if="role === 'user'" class="flex items-center gap-4">
-                    <p><strong>Referral Code:</strong> {{ user.data.referral_code }}</p>
+                    <p>
+                        <strong>Referral Code:</strong>
+                        <span class="font-mono text-sm bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">{{ user.data.referral_code }}</span>
+                    </p>
                     <Button variant="outline" size="sm" @click="copyReferralLink">
                         {{ copied ? "✅ Copied!" : "Copy Link" }}
                     </Button>

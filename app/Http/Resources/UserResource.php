@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             "referred_by" => $this->referred_by,
             "wallet_balance" => $this->balanceFloat,
             "wallet_address" => $this->wallet_address,
+            "is_active" => $this->is_active,
             "total_investment" => $this->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount'),
             "total_referral_income" => $this->transactions()->whereJsonContains('meta->type', 'Level Income')->sumAmountFloat('amount'),
             "referrer" => $this->whenLoaded('referrer'),

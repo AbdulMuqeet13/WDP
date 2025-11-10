@@ -12,6 +12,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { router, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 
 const props = defineProps<{
     user: Object;
@@ -86,6 +95,34 @@ function formatDate(dateStr: string) {
                         v-if="errors.wallet_address"
                         class="text-red-500"
                         >{{ errors.wallet_address }}</small
+                    >
+                </FormItem>
+            </FormField>
+
+            <FormField name="is_active">
+                <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <Select v-model="user.is_active">
+                        <FormControl>
+                            <SelectTrigger>
+                                <SelectValue placeholder="User Status" />
+                            </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem :value="0">
+                                    Inactive
+                                </SelectItem>
+                                <SelectItem :value="1">
+                                    Active
+                                </SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    <small
+                        v-if="errors.is_active"
+                        class="text-red-500"
+                    >{{ errors.wallet_address }}</small
                     >
                 </FormItem>
             </FormField>

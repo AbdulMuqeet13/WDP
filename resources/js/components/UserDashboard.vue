@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/card';
 import DataTable from '@/components/DataTable.vue';
 import Milestone from '@/components/Milestone.vue';
+import { useAppearance } from '@/composables/useAppearance';
 
 defineProps({
     stats: Object,
@@ -26,15 +27,42 @@ defineProps({
 // ]
 
 const colors = {
-    CTO_income: "#fb923c",        // orange-400
-    daily_ROI: "#f472b6",         // pink-400
-    network_income: "#6366f1",    // indigo-400
-    network_members: "#14b8a6",   // teal-400
-    sponsor_income: "#a7f3d0",    // emerald-200
-    total_deposits: "#fb923c",    // orange-400
-    total_withdrawals: "#f472b6", // pink-400
-    wallet_balance: "#14b8a6"     // teal-400
-}
+    CTO_income: {
+        light: "linear-gradient(135deg, #FED7AA, #FDBA74)", // orange soft gradient
+        dark: "linear-gradient(135deg, #7C2D12, #9A3412)",
+    },
+    daily_ROI: {
+        light: "linear-gradient(135deg, #FBCFE8, #F472B6)", // pink gradient
+        dark: "linear-gradient(135deg, #831843, #9D174D)",
+    },
+    network_income: {
+        light: "linear-gradient(135deg, #C7D2FE, #818CF8)", // indigo gradient
+        dark: "linear-gradient(135deg, #312E81, #3730A3)",
+    },
+    network_members: {
+        light: "linear-gradient(135deg, #99F6E4, #2DD4BF)", // teal gradient
+        dark: "linear-gradient(135deg, #115E59, #0D9488)",
+    },
+    sponsor_income: {
+        light: "linear-gradient(135deg, #D1FAE5, #6EE7B7)", // emerald gradient
+        dark: "linear-gradient(135deg, #064E3B, #047857)",
+    },
+    total_deposits: {
+        light: "linear-gradient(135deg, #FDE68A, #F59E0B)", // amber gradient
+        dark: "linear-gradient(135deg, #78350F, #92400E)",
+    },
+    total_withdrawals: {
+        light: "linear-gradient(135deg, #FBCFE8, #EC4899)", // pink gradient
+        dark: "linear-gradient(135deg, #831843, #9D174D)",
+    },
+    wallet_balance: {
+        light: "linear-gradient(135deg, #A7F3D0, #10B981)", // green gradient
+        dark: "linear-gradient(135deg, #065F46, #059669)",
+    },
+};
+
+const { appearance } = useAppearance();
+const isDark = appearance.value === 'dark' //
 </script>
 
 <template>
@@ -43,7 +71,11 @@ const colors = {
             v-for="(value, key) in stats"
             :key="key"
             :class="['rounded-xl border border-border/60']"
-            :style="{ backgroundColor: colors[key] || '#999' }"
+            :style="{
+                background: isDark
+                  ? colors[key]?.dark || '#1E293B'
+                  : colors[key]?.light || '#CBD5E1',
+              }"
         >
             <CardHeader>
                 <CardDescription class="capitalize text-white">{{

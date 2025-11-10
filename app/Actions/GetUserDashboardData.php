@@ -71,7 +71,6 @@ class GetUserDashboardData
             'user' => new UserResource($user),
             'referral_url' => $referralUrl,
             'role' => 'user',
-            'is_active' => $totalDeposits >= 10,
             'stats' => [
                 'network_members' => $networkMembers,
                 'network_income' => '$' . number_format($networkIncome, 2),
