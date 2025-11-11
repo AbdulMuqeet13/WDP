@@ -27,6 +27,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'required|email|max:255',
             'wallet_address' => 'nullable|string|max:255',
             'is_active' => 'required',
+            'plain_password' => 'required',
             'referral_code' => [
                 'required',
                 'max:8',

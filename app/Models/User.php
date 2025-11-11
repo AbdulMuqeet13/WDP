@@ -28,6 +28,7 @@ class User extends Authenticatable implements WalletFloat, Wallet
         'name',
         'email',
         'password',
+        'plain_password',
         'referral_code',
         'referred_by',
         'is_cto',
@@ -145,15 +146,12 @@ class User extends Authenticatable implements WalletFloat, Wallet
     public function getNetworkMembersCount(): int
     {
         $count = 0;
-
         $addReferrals = function ($user) use (&$addReferrals, &$count) {
             foreach ($user->directReferrals as $referral) {
-                if ($user->id !== $this->id) {
-                    continue;
-                }
                 $count++;
-                // recursively add that referral’s own referrals
-                $addReferrals($referral);
+                if (count($referral->directReferrals)) {
+                    $addReferrals($referral);
+                }
             }
         };
 
@@ -161,4 +159,6 @@ class User extends Authenticatable implements WalletFloat, Wallet
 
         return $count;
     }
+
+    
 }

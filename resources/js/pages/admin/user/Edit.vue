@@ -25,7 +25,7 @@ import {
 const props = defineProps<{
     user: Object;
 }>();
-
+console.log(props.user)
 const page = usePage();
 const errors = computed(() => page.props?.errors);
 
@@ -77,6 +77,23 @@ function formatDate(dateStr: string) {
                         v-if="errors.email"
                         class="text-red-500"
                         >{{ errors.email }}</small
+                    >
+                </FormItem>
+            </FormField>
+
+            <FormField name="password">
+                <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                        <Input
+                            type="text"
+                            v-model="user.plain_password"
+                        />
+                    </FormControl>
+                    <small
+                        v-if="errors.password"
+                        class="text-red-500"
+                        >{{ errors.plain_password }}</small
                     >
                 </FormItem>
             </FormField>
