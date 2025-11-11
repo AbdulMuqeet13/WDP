@@ -4,13 +4,14 @@ namespace App\Actions;
 
 use App\Http\Resources\UserResource;
 use App\Models\Transaction;
+use App\Models\User;
 
 class GetUserDashboardData
 {
     public static function handle($user, $referralUrl): array
     {
-        $networkMembers = $user->getNetworkMembersCount();
-        $directMembers = $user->directReferrals()->count();
+        $networkMembers = User::getNetworkMembersCount($user);
+        $directMembers = $user->directReferrals->count();
         $networkIncome = $user->transactions()->whereJsonContains('meta->type', 'Level Income')->sumAmountFloat('amount') ?? 0;
         $totalDeposits = $user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount');
         $totalWithdrawals = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sumAmountFloat('amount');
@@ -74,15 +75,15 @@ class GetUserDashboardData
             'role' => 'user',
             'stats' => [
                 'network_members' => $networkMembers,
-                'total_members' =>  $directMembers,
+                'direct_referrals' =>  $directMembers,
                 'network_income' => '$' . number_format($networkIncome, 2),
                 'total_deposits' => '$' . number_format($totalDeposits, 2),
+                'total_network_business' => '$' . number_format(User::getNetworkMembersTotalDeposit($user), 2),
                 'total_withdrawals' => '$' . number_format(abs($totalWithdrawals), 2),
                 'daily_ROI' => '$' . number_format($dailyROI, 2),
                 'sponsor_income' => '$' . number_format($sponsorIncome, 2),
                 'CTO_income' => '$' . number_format($ctoIncome, 2),
                 'wallet_balance' => '$' . number_format($walletBalance, 2),
-                
             ],
             'milestones' => [
                 [

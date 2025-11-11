@@ -30,7 +30,7 @@ class UserResource extends JsonResource
             "referrer" => $this->whenLoaded('referrer'),
             "directReferrals" => $this->whenLoaded('directReferrals'),
             "direct_referrals_count" => $this->whenCounted('directReferrals'),
-            "network_members" => $this->getNetworkMembersCount(),
+//            "network_members" => $this->getNetworkMembersCount(),
             'joining_date' => Carbon::parse($this->created_at)->format('d M, Y'),
         ];
     }

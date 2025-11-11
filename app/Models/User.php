@@ -142,23 +142,46 @@ class User extends Authenticatable implements WalletFloat, Wallet
         }
     }
 
-
-    public function getNetworkMembersCount(): int
+    public static function getNetworkMembersCount(User $user): int
     {
         $count = 0;
-        $addReferrals = function ($user) use (&$addReferrals, &$count) {
-            foreach ($user->directReferrals as $referral) {
-                $count++;
-                if (count($referral->directReferrals)) {
-                    $addReferrals($referral);
-                }
-            }
-        };
+        $queue = [$user->id]; // start with the root user ID
+        $allIds = [];
 
-        $addReferrals($this);
+        while (!empty($queue)) {
+            $currentId = array_shift($queue);
+            $allIds[] = $currentId;
+
+            // Get direct referrals IDs only
+            $referralIds = User::where('referred_by', $currentId)->pluck('id')->toArray();
+
+            $count += count($referralIds);
+            $queue = array_merge($queue, $referralIds);
+        }
 
         return $count;
     }
 
-    
+
+
+    public static function getNetworkMembersTotalDeposit($user): int
+    {
+        $queue = [$user->id]; // start with the root user ID
+        $allIds = [];
+
+        while (!empty($queue)) {
+            $currentId = array_shift($queue);
+            $allIds[] = $currentId;
+
+            // Get direct referrals IDs only
+            $referralIds = User::where('referred_by', $currentId)->pluck('id')->toArray();
+
+            $queue = array_merge($queue, $referralIds);
+        }
+
+        // Sum transactions for all collected user IDs
+        return Transaction::whereIn('payable_id', $allIds)->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount');
+    }
+
+
 }
