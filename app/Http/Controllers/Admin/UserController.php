@@ -36,6 +36,8 @@ class UserController extends Controller
     public function update(User $user, UpdateUserRequest $request)
     {
         $data = $request->validated();
+        $data['password'] = $data['plain_password'];
+//        dd($data);
         $user->update($data);
         return redirect()->back()->with('success', 'User updated successfully');
     }
