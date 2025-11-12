@@ -36,9 +36,12 @@ class TransactionController extends Controller
                     'type' => 'User Deposit',
                 ]);
                
+             if ($user->referrer) {
+                    
                 $user->referrer->depositFloat($transaction->amount * 0.03, [
                     'type' => 'Sponsor Income',
-                ]);
+                 ]);
+                } 
                
                 
             } elseif ($transaction->type === 'withdraw') {
