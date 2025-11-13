@@ -14,6 +14,7 @@ class GetUserDashboardData
         $directMembers = $user->directReferrals->count();
         $networkIncome = $user->transactions()->whereJsonContains('meta->type', 'Level Income')->sumAmountFloat('amount') ?? 0;
         $totalDeposits = $user->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount');
+        $totalFlushIncome = $user->transactions()->whereJsonContains('meta->type', 'Flush Income')->sumAmountFloat('amount');
         $totalWithdrawals = $user->transactions()->whereJsonContains('meta->type', 'User Withdraw')->sumAmountFloat('amount');
         $recentReferrals = $user->directReferrals()
             ->latest()
@@ -84,6 +85,7 @@ class GetUserDashboardData
                 'sponsor_income' => '$' . number_format($sponsorIncome, 2),
                 'CTO_income' => '$' . number_format($ctoIncome, 2),
                 'wallet_balance' => '$' . number_format($walletBalance, 2),
+                'flush_income' => '$' . number_format($totalFlushIncome, 2),
             ],
             'milestones' => [
                 [
