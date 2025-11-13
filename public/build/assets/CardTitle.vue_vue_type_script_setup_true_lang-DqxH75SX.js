@@ -1,1 +1,0 @@
-import{c as o}from"./createLucideIcon-BRklbVbG.js";import{d as t,i as n,r,l,u as c,o as i}from"./app-DUflAWwO.js";const f=t({__name:"CardTitle",props:{class:{}},setup(s){const e=s;return(a,m)=>(i(),n("h3",{"data-slot":"card-title",class:l(c(o)("leading-none font-semibold",e.class))},[r(a.$slots,"default")],2))}});export{f as _};

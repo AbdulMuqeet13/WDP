@@ -15,7 +15,7 @@ class UserController extends Controller
         $data = request()->all();
         $users = UserResource::collection(
             User::query()
-                ->where('referred_by')
+                ->where('referred_by', auth()->id())
                 ->where(function ($query) use ($data) {
                     if (isset($data['search'])) {
                         $query->where('name', 'LIKE', '%' . trim($data['search']) . '%')
