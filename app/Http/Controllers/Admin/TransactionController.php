@@ -35,15 +35,15 @@ class TransactionController extends Controller
                 $user->depositFloat($transaction->amount, [
                     'type' => 'User Deposit',
                 ]);
-               
-             if ($user->referrer) {
-                    
-                $user->referrer->depositFloat($transaction->amount * 0.03, [
-                    'type' => 'Sponsor Income',
-                 ]);
-                } 
-               
-                
+
+                 if ($user->referrer) {
+                     $totalBalance = $user->referrer->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount');
+                    $user->referrer->depositFloat($transaction->amount * 0.03, [
+                        'type' => $totalBalance < 50 ? 'Flush Income' : 'Sponsor Income',
+                     ]);
+                }
+
+
             } elseif ($transaction->type === 'withdraw') {
                 $user->withdrawFloat($transaction->amount, [
                     'type' => 'User Withdraw',

@@ -59,9 +59,6 @@ class CreditLevelIncome extends Command
 
     protected function distributeLevelIncome(User $user, float $roiAmount, array $levelRates, Carbon $today): void
     {
-        if ($user->balanceFloat < 50) {
-            return;
-        }
         $referrer = $user->referrer;
         $level = 1;
 
@@ -70,9 +67,9 @@ class CreditLevelIncome extends Command
 
             if ($rate > 0 && $referrer->wallet) {
                 $bonus = $roiAmount * $rate;
-
+                $totalBalance = $referrer->transactions()->whereJsonContains('meta->type', 'User Deposit')->sumAmountFloat('amount');
                 $referrer->depositFloat($bonus, [
-                    'type' => 'Level Income',
+                    'type' => $totalBalance < 50 ? 'Flush Income' : 'Level Income',
                     'referrer_id' => $referrer->id,
                     'description' => "Level {$level} income from {$user->name}'s ROI on {$today->toDateString()}",
                 ]);
